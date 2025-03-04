@@ -21,6 +21,7 @@ class Article(models.Model):
         related_name='wiki_list'
     )
     entry = models.TextField()
+    
     # Auto_now on DateTimeField from https://www.geeksforgeeks.org/datetimefield-django-models/
     # Assistance from https://stackoverflow.com/questions/56310322/django-datetimefield-with-auto-now-add-asks-for-default
     created_on = models.DateTimeField(auto_now_add=True)
