@@ -3,9 +3,16 @@ from django.http import HttpResponse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
-class ArticleListView(ListView):
-    pass
+from .models import Article
 
+class ArticleListView(ListView):
+    model = Article
+    template_name = 'wiki_list.html'
+
+
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = 'wiki_detail.html'
 
 def index(request):
     return HttpResponse('Hello World! This is the Wiki app')
