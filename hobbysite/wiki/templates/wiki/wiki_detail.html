@@ -3,5 +3,10 @@
 {% block title %}Article Detail{% endblock %}
 
 {% block content %}
-<h1>Article Detail</h1>
+    <h2>{{object.title}}</h2>
+
+    Created On: {{ object.created_on }} <br>
+    Updated On: {{ object.updated_on }}
+    
+    <p>{{ object.entry }}</p>
 {% endblock %}

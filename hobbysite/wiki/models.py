@@ -9,7 +9,7 @@ class ArticleCategory(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('wiki:wiki-detail', args=[self.pk])
+        return reverse('wiki:article-detail', args=[self.pk])
 
     class Meta:
         ordering = ['name'] # Order by name in ascending order
