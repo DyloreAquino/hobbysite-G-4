@@ -10,7 +10,7 @@ class ArticleCategoryAdmin(admin.ModelAdmin):
 class ArticleAdmin(admin.ModelAdmin):
     model = Article
 
-    list_display = ('title', 'created_on', 'updated_on')
+    list_display = ('title', 'category', 'created_on', 'updated_on')
 
 
 admin.site.register(ArticleCategory, ArticleCategoryAdmin)
