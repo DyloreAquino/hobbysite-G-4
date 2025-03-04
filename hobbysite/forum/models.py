@@ -4,7 +4,7 @@ from django.urls import reverse
 # Create your models here.
 class ProductType(models.Model):
     name = models.CharField(max_length=255)
-    description = models.TextField
+    description = models.TextField(default="No description available")
 
     class Meta:
         ordering = ['name'] # Order by name in ascending order
@@ -19,7 +19,7 @@ class Product(models.Model):
         on_delete=models.SET_NULL,
         null=True,
     )
-    description = models.TextField
+    description = models.TextField(default="No description available")
     price = models.DecimalField(max_digits=63, decimal_places=2)
 
     class Meta:
