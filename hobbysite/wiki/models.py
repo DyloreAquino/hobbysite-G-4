@@ -1,6 +1,5 @@
 from django.db import models
-
-from datetime import datetime as dt
+from django.urls import reverse
 
 class ArticleCategory(models.Model):
     name = models.CharField(max_length=255)
@@ -9,10 +8,13 @@ class ArticleCategory(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('wiki:wiki-detail', args=[self.pk])
+
     class Meta:
         ordering = ['name'] # Order by name in ascending order
-        verbose_name = 'article category'
-        verbose_name_plural = 'article categories'
+        verbose_name = 'article_category'
+        verbose_name_plural = 'article_categories'
 
 
 class Article(models.Model):
@@ -20,8 +22,7 @@ class Article(models.Model):
     category = models.ForeignKey(
         ArticleCategory,
         on_delete=models.SET_NULL,
-        null=True,
-        related_name='articlecategory'
+        null=True
     )
     entry = models.TextField()
 
