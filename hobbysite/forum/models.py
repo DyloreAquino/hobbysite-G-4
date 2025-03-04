@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 
 # Create your models here.
-class ProductType(models.Model):
+class PostCategory(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(default="No description available")
 
@@ -12,21 +12,22 @@ class ProductType(models.Model):
     def __str__(self):
         return str(self.name)
 
-class Product(models.Model):
-    name = models.CharField(max_length=255)
-    product_type = models.ForeignKey(
-        ProductType,
+class Post(models.Model):
+    title = models.CharField(max_length=255)
+    category = models.ForeignKey(
+        PostCategory,
         on_delete=models.SET_NULL,
         null=True,
     )
-    description = models.TextField(default="No description available")
-    price = models.DecimalField(max_digits=63, decimal_places=2)
+    entry = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['name'] # Order by name in ascending order
+        ordering = ['-created_on'] # Order by name in ascending order
     
     def __str__(self):
-        return f'{self.name} of type {self.product_type}'
+        return str(self.title)
     
     def get_absolute_url(self):
-        return reverse('forum:product-detail', args=[self.pk])
+        return reverse('forum:post-detail', args=[self.pk])

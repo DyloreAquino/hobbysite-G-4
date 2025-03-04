@@ -1,16 +1,16 @@
 from django.contrib import admin
-from .models import ProductType, Product
+from .models import PostCategory, Post
 
-class ProductInline(admin.TabularInline):
-    model = Product
+class PostInline(admin.TabularInline):
+    model = Post
 
-class ProductTypeAdmin(admin.ModelAdmin):
-    model = ProductType
-    inlines = [ProductInline,]
+class PostCategoryAdmin(admin.ModelAdmin):
+    model = PostCategory
+    inlines = [PostInline,]
 
-class ProductAdmin(admin.ModelAdmin):
-    model = Product
+class PostAdmin(admin.ModelAdmin):
+    model = Post
 
 # Register your models here.
-admin.site.register(ProductType, ProductTypeAdmin)
-admin.site.register(Product, ProductAdmin)
+admin.site.register(PostCategory, PostCategoryAdmin)
+admin.site.register(Post, PostAdmin)

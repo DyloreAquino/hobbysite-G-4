@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>
+        {{ object.title }}
+    </h1>
+    <h2>
+        of category {{ object.category }}
+    </h2>
+    <h4>
+        Created on {{ object.created_on }}
+    </h4>
+    <h4>
+        Last updated on {{ object.updated_on}}
+    </h4>
+    <p>
+        {{ object.entry }}
+    </p>
+    <a href="/forum/threads">
+        Go back to product list.
+    </a>
+{% endblock %}
