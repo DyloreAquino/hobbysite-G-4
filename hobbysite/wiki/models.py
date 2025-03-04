@@ -8,9 +8,6 @@ class ArticleCategory(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse('wiki:article-detail', args=[self.pk])
-
     class Meta:
         ordering = ['name'] # Order by name in ascending order
         verbose_name = 'article_category'
@@ -33,6 +30,9 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('wiki:article-detail', args=[self.pk])
 
     class Meta:
         ordering = ['-created_on']
