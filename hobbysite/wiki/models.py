@@ -8,6 +8,8 @@ class ArticleCategory(models.Model):
 
     class Meta:
         ordering = ['name'] # Order by name in ascending order
+        verbose_name = 'article category'
+        verbose_name_plural = 'article categories'
 
 
 class Article(models.Model):
@@ -26,5 +28,7 @@ class Article(models.Model):
 
     class Meta:
         ordering = ['-created_on']
+        verbose_name = 'article'
+        verbose_name_plural = 'articles'
 
 
