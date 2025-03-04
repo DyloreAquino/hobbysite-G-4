@@ -7,12 +7,12 @@ from .models import Article
 
 class ArticleListView(ListView):
     model = Article
-    template_name = 'wiki_list.html'
+    template_name = 'wiki/wiki_list.html'
 
 
 class ArticleDetailView(DetailView):
     model = Article
-    template_name = 'wiki_detail.html'
+    template_name = 'wiki/wiki_detail.html'
 
 def index(request):
     return HttpResponse('Hello World! This is the Wiki app')
