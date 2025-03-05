@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Article Detail{% endblock %}
+
+{% block content %}
+    <h2>{{object.title}}</h2>
+    
+    <p>{{ object.entry }}</p>
+
+    Category: {{ object.category }} <br>
+    Created On: {{ object.created_on }} <br>
+    Updated On: {{ object.updated_on }}
+    
+    
+{% endblock %}
