@@ -9,11 +9,11 @@ class CommissionListView(ListView):
     """List view of commissions."""
 
     model = Commission
-    template_name = 'commissions_list.html'
+    template_name = 'commissions/commissions_list.html'
 
 
 class CommissionDetailView(DetailView):
     """Detail view of commissions."""
 
     model = Commission
-    template_name = 'commissions_detail.html'
+    template_name = 'commissions/commissions_detail.html'
