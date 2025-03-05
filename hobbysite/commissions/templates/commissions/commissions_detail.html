@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ object.title }} {% endblock %}
+
+{% block content %}
+<h1> 
+    {{ object.title }} 
+</h1>
+
+<h2>
+    {{ object.description }}
+</h2>
+
+<br>
+
+<h5>
+    {{ object.createdOn }}
+    {{ object.updatedOn }}
+</h5>
+
+<a href="/commissions/list"> Go back </a>
+
+{% endblock %}
