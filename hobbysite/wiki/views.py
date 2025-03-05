@@ -15,4 +15,4 @@ class ArticleDetailView(DetailView):
     template_name = 'wiki/wiki_detail.html'
 
 def index(request):
-    return HttpResponse('Hello World! This is the Wiki app')
+    return HttpResponse()
