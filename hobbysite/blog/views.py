@@ -5,6 +5,7 @@ from django.views.generic.detail import DetailView
 
 from .models import ArticleCategory, Article
 
+
 class ArticleListView(ListView):
     model = Article
     template_name = 'blog/article_list.html'
