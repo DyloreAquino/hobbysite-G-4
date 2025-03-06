@@ -1,14 +1,14 @@
 """Urls file."""
 from django.urls import path
-from .views import CommissionListView, CommissionDetailView
+from .views import CommentListView, CommentDetailView
 
 urlpatterns = [
     path('list',
-         CommissionListView.as_view(),
-         name='commissions-list'),
+         CommentListView.as_view(),
+         name='comment-list'),
     path('detail/<int:pk>',
-         CommissionDetailView.as_view(),
-         name='commissions-detail'),
+         CommentDetailView.as_view(),
+         name='comment-detail'),
 ]
 
 app_name = "commissions"
