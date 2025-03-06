@@ -4,9 +4,14 @@
 {% block title %} {{ object.name }} {% endblock %}
 
 {% block content %}
-<h2> {{ object.name }} </h2>
-<p>{{ object.product_type }} | ₱{{ object.price }}</p>
-<p> {{ object.description }} </p>
-<br>
-<a href="/merchstore/items"> Looking for something else? </a>
+<h2> Merchstore </h2>
+<hr>
+<h3> {{ object.name }} </h3>
+
+<p>
+	Product Type: {{ object.product_type }} <br>
+	Price: ₱{{ object.price }} <br> <br>
+	{{ object.description }}
+</p>
+<a href="/merchstore/items"> Go back to product list. </a>
 {% endblock %}
