@@ -5,12 +5,11 @@
 {% block content %}
     <h2>Online Wiki</h2>
     <hr>
-    <h3>Article List</h3>
+    <h3>Articles</h3>
     <ul>
         {% for article in object_list %}
             <li>
-                <a href="{{ article.get_absolute_url }}">{{ article.category }}: {{ article.title }}
-                    - Created on: {{ article.created_on }} - Last Updated: {{ article.updated_on }}
+                <a href="{{ article.get_absolute_url }}">{{ article.title }}
                 </a>
             </li>
         {% endfor %}

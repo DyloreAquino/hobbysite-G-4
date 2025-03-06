@@ -3,6 +3,7 @@ from django.views.generic.detail import DetailView
 
 from .models import Article
 
+
 class ArticleListView(ListView):
     model = Article
     template_name = 'wiki/wiki_list.html'
