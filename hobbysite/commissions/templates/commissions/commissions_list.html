@@ -4,8 +4,11 @@
 {% block title %} Commissions {% endblock %}
 
 {% block content %}
-<h2> Commissions </h2>
-<ol>
+<h2>
+	Commissions
+</h2>
+<hr>
+<ul>
 	{% for commissions in object_list %}
 	<li>
 		<a href="{{ commissions.get_absolute_url }}">
@@ -13,5 +16,5 @@
 		</a>
 	</li>
 	{% endfor %}
-</ol>
+</ul>
 {% endblock %}

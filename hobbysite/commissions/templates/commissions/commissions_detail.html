@@ -1,24 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} {{ object.title }} {% endblock %}
+{% block title %} Commissions {% endblock %}
 
 {% block content %}
-<h1> 
-    {{ object.title }} 
-</h1>
+<h2>Commissions</h2>
+<hr>
+<h3>{{ object.title }}</h3>
 
-<h2>
+<p>
+    Needs: {{ object.requiredPeople }} <br>
+    Created on: {{ object.createdOn }} <br>
+    Updated on: {{ object.updatedOn }} <br>
+    <br>
     {{ object.description }}
-</h2>
+</p>
 
-<br>
-
-<h5>
-    {{ object.createdOn }}
-    {{ object.updatedOn }}
-</h5>
-
-<a href="/commissions/list"> Go back </a>
-
+<a href="/commissions/list">
+    Go back to commissions list.
+</a>
 {% endblock %}

@@ -16,10 +16,11 @@ class Commission(models.Model):
     def __str__(self):
         """Return the name of the object."""
         return self.name
-    
+
     def get_absolute_url(self):
         """Return the url link of the object."""
         return reverse('commissions:commissions-detail', args=[self.pk])
+
 
 class Comment(models.Model):
     """A model for comments."""
