@@ -3,11 +3,16 @@
 {% block title %}Article Detail{% endblock %}
 
 {% block content %}
-    <h2>{{object.title}}</h2>
+    <h2>Online Wiki</h2>
+    <hr>
+    <h3>{{ object.title }}</h3>
     
-    Category: {{ object.category }} <br>
-    Created On: {{ object.created_on }} <br>
-    Updated On: {{ object.updated_on }}
-    
-    <p>{{ object.entry }}</p>
+    <p>
+        Category: {{ object.category }} <br>
+        Created On: {{ object.created_on }} <br>
+        Updated On: {{ object.updated_on }} <br>
+        <br>
+        {{ object.entry }}<br>
+        <br>
+    </p>
 {% endblock %}
