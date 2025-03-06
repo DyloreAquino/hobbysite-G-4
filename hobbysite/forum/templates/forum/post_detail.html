@@ -1,22 +1,25 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    Forum
+{% endblock %}
+
 {% block content %}
-    <h1>
-        {{ object.title }}
-    </h1>
     <h2>
-        of category {{ object.category }}
+        Forum
     </h2>
-    <h4>
-        Created on {{ object.created_on }}
-    </h4>
-    <h4>
-        Last updated on {{ object.updated_on}}
-    </h4>
+    <hr>
+    <h3>
+        {{ object.title }}
+    </h3>
     <p>
+        Category: {{ object.category }} <br>
+        Created on: {{ object.created_on }} <br>
+        Last updated on: {{ object.updated_on}} <br><br>
+        
         {{ object.entry }}
     </p>
     <a href="/forum/threads">
-        Go back to product list.
+        Go back to post list.
     </a>
 {% endblock %}
