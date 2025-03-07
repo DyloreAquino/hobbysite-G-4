@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Article Detail{% endblock %}
+
+{% block content %}
+    <h2>Blog</h2>
+    <hr>
+    <h3>{{ object.title }}</h3>
+        
+    <p>     
+        Category: {{ object.category }} <br>
+        Created On: {{ object.created_on }} <br>
+        Updated On: {{ object.updated_on }} <br>
+        <br>    
+        {{ object.entry }}
+    </p>
+
+    <a href="/blog/articles">
+        Go back to articles list
+    </a>
+{% endblock %}

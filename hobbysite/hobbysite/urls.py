@@ -19,5 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('forum/', include('forum.urls', namespace='forum')),
+    path('', include('blog.urls', namespace="blog")),
     path('admin/', admin.site.urls),
 ]
