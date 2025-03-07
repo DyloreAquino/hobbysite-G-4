@@ -14,7 +14,7 @@ class Commission(models.Model):
     updatedOn = models.DateTimeField()
 
     class Meta():
-    """Orders the commissions based on date created."""
+        """Orders the commissions based on date created."""
 
         ordering = ['-createdOn']
 
@@ -37,7 +37,7 @@ class Comment(models.Model):
     createdOn = models.DateTimeField()
     updatedOn = models.DateTimeField()
 
-    class Meta()
-    """Orders the comments based on date created."""
+    class Meta():
+        """Orders the comments based on date created."""
 
         ordering = ['-createdOn']
