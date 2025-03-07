@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Commissions {% endblock %}
+
+{% block content %}
+<h2>Commissions</h2>
+<hr>
+<h3>{{ object.title }}</h3>
+
+<p>
+    Needs: {{ object.requiredPeople }} <br>
+    Created on: {{ object.createdOn }} <br>
+    Updated on: {{ object.updatedOn }} <br>
+    <br>
+    {{ object.description }}
+</p>
+<br>
+<h3>Comments:</h3>
+
+<p>
+    {% for comment in object.comments.all %}
+        {{ comment.entry }} <br>
+        Created on : {{ comment.createdOn }} <br>
+        Updated on : {{ comment.updatedOn }} <br>
+    {% endfor %}
+</p>
+
+<a href="/commissions/list">
+    Go back to commissions list.
+</a>
+{% endblock %}
