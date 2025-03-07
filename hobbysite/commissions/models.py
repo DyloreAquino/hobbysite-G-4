@@ -13,6 +13,11 @@ class Commission(models.Model):
     createdOn = models.DateTimeField()
     updatedOn = models.DateTimeField()
 
+    class Meta():
+    """Orders the commissions based on date created."""
+
+        ordering = ['-createdOn']
+
     def __str__(self):
         """Return the name of the object."""
         return self.title
@@ -31,3 +36,8 @@ class Comment(models.Model):
     entry = models.TextField()
     createdOn = models.DateTimeField()
     updatedOn = models.DateTimeField()
+
+    class Meta()
+    """Orders the comments based on date created."""
+
+        ordering = ['-createdOn']
