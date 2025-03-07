@@ -1,19 +1,19 @@
 """Views file."""
-from .models import Comment
+from .models import Commission
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 # Create your views here.
 
 
-class CommentListView(ListView):
-    """List view of comments."""
+class CommissionListView(ListView):
+    """List view of commissions."""
 
-    model = Comment
-    template_name = 'commissions/comment_list.html'
+    model = Commission
+    template_name = 'commissions/commissions_list.html'
 
 
-class CommentDetailView(DetailView):
-    """Detail view of comments."""
+class CommissionDetailView(DetailView):
+    """Detail view of commissions."""
 
-    model = Comment
-    template_name = 'commissions/comment_detail.html'
+    model = Commission
+    template_name = 'commissions/commissions_detail.html'
