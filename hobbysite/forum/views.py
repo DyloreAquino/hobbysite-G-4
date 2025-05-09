@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import PostCategory, Post
 
@@ -10,6 +11,6 @@ class PostListView(ListView):
     template_name = 'forum/post_list.html'
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = 'forum/post_detail.html'

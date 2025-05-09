@@ -2,6 +2,7 @@
 from .models import Commission
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 
@@ -12,7 +13,7 @@ class CommissionListView(ListView):
     template_name = 'commissions/commissions_list.html'
 
 
-class CommissionDetailView(DetailView):
+class CommissionDetailView(LoginRequiredMixin, DetailView):
     """Detail view of commissions."""
 
     model = Commission
