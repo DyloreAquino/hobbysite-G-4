@@ -121,6 +121,10 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Login related stuff
+LOGIN_REDIRECT_URL = '/accounts/login'
+LOGOUT_REDIRECT_URL = '/accounts/logout'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
