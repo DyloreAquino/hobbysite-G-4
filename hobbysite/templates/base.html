@@ -27,6 +27,12 @@
                     Login
                 </a>
             {% endif %}
+            
+            <br><br>
+
+            {% if request.path != '/' %}
+                <a href="/">Go back to homepage.</a>
+            {% endif %}
 
         {% endblock %}
     </head>

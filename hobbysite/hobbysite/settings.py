@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'merchstore',
     'commissions',
     'accounts',
+    'homepage',
 ]
 
 MIDDLEWARE = [
@@ -122,8 +123,8 @@ USE_I18N = True
 USE_TZ = True
 
 # Login related stuff
-LOGIN_REDIRECT_URL = '/accounts/login'
-LOGOUT_REDIRECT_URL = '/accounts/logout'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Static files (CSS, JavaScript, Images)
