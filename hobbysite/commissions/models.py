@@ -12,7 +12,6 @@ class Commission(models.Model):
     author = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
-        null=True
     )
     description = models.TextField()
     requiredPeople = models.IntegerField()
