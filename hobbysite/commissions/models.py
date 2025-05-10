@@ -1,6 +1,7 @@
 """Models file."""
 from django.db import models
 from django.urls import reverse
+from user_management.models import Profile
 # Create your models here.
 
 
@@ -8,6 +9,11 @@ class Commission(models.Model):
     """A model for commissions."""
 
     title = models.CharField(max_length=255)
+    author = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        null=True
+    )
     description = models.TextField()
     requiredPeople = models.IntegerField()
     createdOn = models.DateTimeField()
@@ -30,9 +36,11 @@ class Commission(models.Model):
 class Comment(models.Model):
     """A model for comments."""
 
-    commission = models.ForeignKey(Commission,
-                                   on_delete=models.CASCADE,
-                                   related_name='comments')
+    commission = models.ForeignKey(
+        Commission,
+        on_delete=models.CASCADE,
+        related_name='comments'
+    )
     entry = models.TextField()
     createdOn = models.DateTimeField()
     updatedOn = models.DateTimeField()
