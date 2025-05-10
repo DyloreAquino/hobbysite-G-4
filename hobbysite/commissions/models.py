@@ -43,19 +43,4 @@ class Commission(models.Model):
         return reverse('commissions:commissions-detail', args=[self.pk])
 
 
-class Comment(models.Model):
-    """A model for comments."""
 
-    commission = models.ForeignKey(
-        Commission,
-        on_delete=models.CASCADE,
-        related_name='comments'
-    )
-    entry = models.TextField()
-    createdOn = models.DateTimeField()
-    updatedOn = models.DateTimeField()
-
-    class Meta():
-        """Orders the comments based on date created."""
-
-        ordering = ['-createdOn']
