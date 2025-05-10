@@ -4,7 +4,7 @@ from django.urls import reverse
 from user_management.models import Profile
 # Create your models here.
 
-STATUS_CHOICES = (
+DEFAULT_STATUS_CHOICES = (
     ("OPEN", "Open"),
     ("FULL", "Full"),
     ("COMPLETE", "Completed"),
@@ -18,11 +18,12 @@ class Commission(models.Model):
     author = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
+        null=True
     )
     description = models.TextField()
     status = models.CharField(
         max_length=20,
-        choices=STATUS_CHOICES,
+        choices=DEFAULT_STATUS_CHOICES,
         default='OPEN'
     )
     requiredPeople = models.IntegerField()
@@ -42,5 +43,21 @@ class Commission(models.Model):
         """Return the url link of the object."""
         return reverse('commissions:commissions-detail', args=[self.pk])
 
+
+class Job(models.Model):
+    "A model for Jobs on each Commission"
+
+    commission = models.ForeignKey(
+        Commission,
+        on_delete=models.CASCADE,
+        null=True
+    )
+    role = models.CharField(max_length=255, null=True)
+    manpower_required = models.IntegerField()
+    status = models.CharField(
+        max_length=20,
+        choices=DEFAULT_STATUS_CHOICES[:2],
+        default='OPEN'
+    )
 
 

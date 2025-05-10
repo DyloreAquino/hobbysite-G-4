@@ -1,6 +1,6 @@
 """Admin file."""
 from django.contrib import admin
-from .models import Commission
+from .models import Commission, Job
 # Register your models here.
 
 
@@ -10,4 +10,9 @@ class CommissionAdmin(admin.ModelAdmin):
     model = Commission
 
 
+class JobAdmin(admin.ModelAdmin):
+
+    model = Job
+
 admin.site.register(Commission, CommissionAdmin)
+admin.site.register(Job, JobAdmin)
