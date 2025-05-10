@@ -27,8 +27,8 @@ class Commission(models.Model):
         default='OPEN'
     )
     requiredPeople = models.IntegerField()
-    createdOn = models.DateTimeField()
-    updatedOn = models.DateTimeField()
+    createdOn = models.DateTimeField(auto_now_add=True)
+    updatedOn = models.DateTimeField(auto_now_add=True)
 
     class Meta():
         """Orders the commissions based on date created."""
@@ -62,4 +62,6 @@ class Job(models.Model):
 
     class Meta:
         """Meta of the Job model to order by status & manpower"""
+        # Status needs to be put in descending since 
+        # we're expecting Open before Full and it sorts alphabetically
         ordering = ["-status", "-manpower_required", "role"]

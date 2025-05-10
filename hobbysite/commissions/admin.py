@@ -9,6 +9,12 @@ class CommissionAdmin(admin.ModelAdmin):
 
     model = Commission
 
+    list_display = (
+        'title',
+        'createdOn',
+        'updatedOn'
+    )
+
 
 class JobAdmin(admin.ModelAdmin):
     """Admin access to Job"""
