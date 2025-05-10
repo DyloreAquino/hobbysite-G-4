@@ -45,7 +45,7 @@ class Commission(models.Model):
 
 
 class Job(models.Model):
-    "A model for Jobs on each Commission"
+    """A model for Jobs on each Commission"""
 
     commission = models.ForeignKey(
         Commission,
@@ -60,4 +60,6 @@ class Job(models.Model):
         default='OPEN'
     )
 
-
+    class Meta:
+        """Meta of the Job model to order by status & manpower"""
+        ordering = ["-status", "-manpower_required", "role"]

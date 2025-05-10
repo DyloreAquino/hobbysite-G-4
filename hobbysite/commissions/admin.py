@@ -11,8 +11,16 @@ class CommissionAdmin(admin.ModelAdmin):
 
 
 class JobAdmin(admin.ModelAdmin):
+    """Admin access to Job"""
 
     model = Job
+
+    list_display = (
+        'commission',
+        'role',
+        'manpower_required',
+        'status'
+    )
 
 admin.site.register(Commission, CommissionAdmin)
 admin.site.register(Job, JobAdmin)
