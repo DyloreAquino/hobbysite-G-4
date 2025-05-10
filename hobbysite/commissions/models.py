@@ -32,7 +32,7 @@ class Commission(models.Model):
     class Meta():
         """Orders the commissions based on date created."""
 
-        ordering = ['-createdOn']
+        ordering = ['createdOn']
 
     def __str__(self):
         """Return the name of the object."""
