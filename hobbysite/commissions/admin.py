@@ -11,8 +11,8 @@ class CommissionAdmin(admin.ModelAdmin):
 
     list_display = (
         'title',
-        'createdOn',
-        'updatedOn'
+        'created_on',
+        'updated_on'
     )
 
 
@@ -37,7 +37,7 @@ class JobAppAdmin(admin.ModelAdmin):
     list_display = (
         'job',
         'status',
-        'appliedOn'
+        'applied_on'
     )
 
 admin.site.register(Commission, CommissionAdmin)

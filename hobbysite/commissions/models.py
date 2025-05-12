@@ -3,11 +3,12 @@ from django.db import models
 from django.urls import reverse
 from user_management.models import Profile
 from django.utils.translation import gettext_lazy as _
-# Create your models here.
 
 
 class Commission(models.Model):
-    """A model for commissions."""
+    """
+    A model for commissions.
+    """
     COMM_STATUS_CHOICES = {
         "OPEN": "Open",
         "FULL": "Full",
@@ -27,25 +28,38 @@ class Commission(models.Model):
         default='OPEN'
     )
     requiredPeople = models.IntegerField()
-    createdOn = models.DateTimeField(auto_now_add=True)
-    updatedOn = models.DateTimeField(auto_now=True)
+    created_on = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Created On"
+    )
+    updated_on = models.DateTimeField(
+        auto_now=True,
+        verbose_name="Updated On"
+    )
 
     class Meta():
-        """Orders the commissions based on date created."""
-
-        ordering = ['createdOn']
+        """
+        Orders the commissions based on date created.
+        """
+        ordering = ['created_on']
 
     def __str__(self):
-        """Return the name of the object."""
+        """
+        Return the name of the object.
+        """
         return self.title
 
     def get_absolute_url(self):
-        """Return the url link of the object."""
+        """
+        Return the url link of the object.
+        """
         return reverse('commissions:commissions-detail', args=[self.pk])
 
 
 class Job(models.Model):
-    """A model for Jobs on each Commission"""
+    """
+    A model for Jobs on each Commission
+    """
     JOB_STATUS_CHOICES = {
         "OPEN": "Open",
         "FULL": "Full"
@@ -64,18 +78,31 @@ class Job(models.Model):
     )
 
     class Meta:
-        """Meta of the Job model to order by status & manpower"""
+        """
+        Meta of the Job model to order by status & manpower
+        """
         # Status needs to be put in descending since 
         # we're expecting Open before Full and it sorts alphabetically
         ordering = ["-status", "-manpower_required", "role"]
+    
+    def __str__(self):
+        """
+        Sets the name of the job to be human readable
+        """
+        return f"{self.commission.title} {self.role}"
 
 
 class JobApplication(models.Model):
-    """Model for JobApplication"""
+    """
+    Model for JobApplication
+    """
     class JobAppStatus(models.TextChoices):
         """
         Subclass to set status of text choices
         that allows the status choices to be sorted
+
+        Enum from
+        https://docs.djangoproject.com/en/5.2/ref/models/fields/
         """
         PENDING = "1", _("Pending"),
         ACCEPTED = "2", _("Accepted"),
@@ -96,10 +123,14 @@ class JobApplication(models.Model):
         choices=JobAppStatus,
         default=JobAppStatus.PENDING
     )
-    
-    appliedOn = models.DateTimeField(auto_now_add=True)
+    applied_on = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Applied On"
+    )
 
     class Meta:
-        """Sets ordering of JobApplication Model"""
-        ordering = ["status", "-appliedOn"]
+        """
+        Sets ordering of JobApplication Model
+        """
+        ordering = ["status", "-applied_on"]
         
