@@ -4,6 +4,12 @@ from .models import Commission, Job, JobApplication
 # Register your models here.
 
 
+class JobAppAdmin(admin.TabularInline):
+    """Admin access to JobApplication"""
+
+    model = JobApplication
+
+
 class CommissionAdmin(admin.ModelAdmin):
     """Admin access to commissions."""
 
@@ -22,6 +28,7 @@ class JobAdmin(admin.ModelAdmin):
     """Admin access to Job"""
 
     model = Job
+    inlines = [JobAppAdmin]
 
     list_display = (
         'commission',
@@ -31,17 +38,5 @@ class JobAdmin(admin.ModelAdmin):
     )
 
 
-class JobAppAdmin(admin.ModelAdmin):
-    """Admin access to JobApplication"""
-
-    model = JobApplication
-
-    list_display = (
-        'job',
-        'status',
-        'applied_on'
-    )
-
 admin.site.register(Commission, CommissionAdmin)
 admin.site.register(Job, JobAdmin)
-admin.site.register(JobApplication, JobAppAdmin)
