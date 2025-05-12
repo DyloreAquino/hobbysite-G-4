@@ -8,66 +8,29 @@
 	Commissions
 </h2>
 <hr>
-<h3>All Commissions</h3>
+{% regroup object_list by get_status_display as commissions_list %}
+
+{% comment %}
+Regroup from 
+https://docs.djangoproject.com/en/5.1/ref/templates/builtins/#regroup
+https://www.w3schools.com/django/ref_tags_regroup.php
+{% endcomment %}
+
 <ul>
-	<li>
-	<b>Open</b>
-	{% for commissions in object_list reversed %}
-		<ul>
-			{% if commissions.status == "OPEN" %}
-			<li>
-				<a href="{{ commissions.get_absolute_url }}">
-				{{ commissions.title }}
-				</a>
-			</li>
-			{% endif %}
-		</ul>
+	{% for commission in commissions_list %}
+		<li><b>{{ commission.grouper }}</b>
+			<ul>
+				{% for status in commission.list reversed %}
+					{# Reversed since commissions already ordered ascending. Looking for descending #}
+					<li>
+					<a href="{{ status.get_absolute_url }}">
+						{{ status.title }}
+					</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</li>
 	{% endfor %}
-	</li>
-
-	<li>
-	<b>Full</b>
-	{% for commissions in object_list reversed %}
-		<ul>
-			{% if commissions.status == "FULL" %}
-			<li>
-				<a href="{{ commissions.get_absolute_url }}">
-				{{ commissions.title }}
-				</a>
-			</li>
-			{% endif %}
-		</ul>
-	{% endfor %}
-	</li>
-
-	<li>
-	<b>Completed</b>
-	{% for commissions in object_list reversed %}
-		<ul>
-			{% if commissions.status == "COMPLETE" %}
-			<li>
-				<a href="{{ commissions.get_absolute_url }}">
-				{{ commissions.title }}
-				</a>
-			</li>
-			{% endif %}
-		</ul>
-	{% endfor %}
-	</li>
-
-	<li>
-	<b>Discontinued</b>
-	{% for commissions in object_list reversed %}
-		<ul>
-			{% if commissions.status == "DISCONTINUED" %}
-			<li>
-				<a href="{{ commissions.get_absolute_url }}">
-				{{ commissions.title }}
-				</a>
-			</li>
-			{% endif %}
-		</ul>
-	{% endfor %}
-	</li>
 </ul>
+
 {% endblock %}
