@@ -11,9 +11,23 @@
 <ul>
 	{% for commissions in object_list %}
 	<li>
-		<a href="{{ commissions.get_absolute_url }}">
-		{{ commissions.title }}
-		</a>
+		{% if commissions.status == "OPEN" %}
+			<a href="{{ commissions.get_absolute_url }}">
+			{{ commissions.title }}
+			</a>
+		{% elif commissions.status == "FULL" %}
+			<a href="{{ commissions.get_absolute_url }}">
+			{{ commissions.title }}
+			</a>
+		{% elif commissions.status == "COMPLETED" %}
+			<a href="{{ commissions.get_absolute_url }}">
+			{{ commissions.title }}
+			</a>
+		{% elif commissions.status == "DISCONTINUED" %}
+			<a href="{{ commissions.get_absolute_url }}">
+			{{ commissions.title }}
+			</a>
+		{% endif %}
 	</li>
 	{% endfor %}
 </ul>
