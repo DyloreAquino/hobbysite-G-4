@@ -9,21 +9,11 @@
 <h3>{{ object.title }}</h3>
 
 <p>
-    Needs: {{ object.requiredPeople }} <br>
-    Created on: {{ object.createdOn }} <br>
-    Updated on: {{ object.updatedOn }} <br>
+    Needs: {{ object.required_people }} people <br>
+    Created on: {{ object.created_on }} <br>
+    Updated on: {{ object.updated_on }} <br>
     <br>
     {{ object.description }}
-</p>
-<br>
-<h3>Comments:</h3>
-
-<p>
-    {% for comment in object.comments.all %}
-        {{ comment.entry }} <br>
-        Created on : {{ comment.createdOn }} <br>
-        Updated on : {{ comment.updatedOn }} <br>
-    {% endfor %}
 </p>
 
 <a href="/commissions/list">

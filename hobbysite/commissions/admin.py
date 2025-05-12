@@ -12,6 +12,7 @@ class CommissionAdmin(admin.ModelAdmin):
     list_display = (
         'title',
         'status',
+        'required_people',
         'created_on',
         'updated_on'
     )

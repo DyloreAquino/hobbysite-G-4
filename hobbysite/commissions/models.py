@@ -27,7 +27,7 @@ class Commission(models.Model):
         choices=COMM_STATUS_CHOICES,
         default='OPEN'
     )
-    requiredPeople = models.IntegerField()
+    required_people = models.IntegerField()
     created_on = models.DateTimeField(
         auto_now_add=True,
         verbose_name="Created On"
