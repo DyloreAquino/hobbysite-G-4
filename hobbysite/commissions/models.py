@@ -2,18 +2,18 @@
 from django.db import models
 from django.urls import reverse
 from user_management.models import Profile
+from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
-DEFAULT_STATUS_CHOICES = (
-    ("OPEN", "Open"),
-    ("FULL", "Full"),
-    ("COMPLETE", "Completed"),
-    ("DISCONTINUED", "Discontinued")
-)
 
 class Commission(models.Model):
     """A model for commissions."""
-
+    COMM_STATUS_CHOICES = {
+        "OPEN": "Open",
+        "FULL": "Full",
+        "COMPLETE": "Completed",
+        "DISCONTINUED": "Discontinued"
+    }
     title = models.CharField(max_length=255)
     author = models.ForeignKey(
         Profile,
@@ -23,7 +23,7 @@ class Commission(models.Model):
     description = models.TextField()
     status = models.CharField(
         max_length=20,
-        choices=DEFAULT_STATUS_CHOICES,
+        choices=COMM_STATUS_CHOICES,
         default='OPEN'
     )
     requiredPeople = models.IntegerField()
@@ -46,7 +46,10 @@ class Commission(models.Model):
 
 class Job(models.Model):
     """A model for Jobs on each Commission"""
-
+    JOB_STATUS_CHOICES = {
+        "OPEN": "Open",
+        "FULL": "Full"
+    }
     commission = models.ForeignKey(
         Commission,
         on_delete=models.CASCADE,
@@ -56,7 +59,7 @@ class Job(models.Model):
     manpower_required = models.IntegerField()
     status = models.CharField(
         max_length=20,
-        choices=DEFAULT_STATUS_CHOICES[:2],
+        choices=JOB_STATUS_CHOICES,
         default='OPEN'
     )
 
@@ -66,3 +69,37 @@ class Job(models.Model):
         # we're expecting Open before Full and it sorts alphabetically
         ordering = ["-status", "-manpower_required", "role"]
 
+
+class JobApplication(models.Model):
+    """Model for JobApplication"""
+    class JobAppStatus(models.TextChoices):
+        """
+        Subclass to set status of text choices
+        that allows the status choices to be sorted
+        """
+        PENDING = "1", _("Pending"),
+        ACCEPTED = "2", _("Accepted"),
+        REJECTED = "3", _("Rejected")
+
+    job = models.ForeignKey(
+        Job,
+        on_delete=models.CASCADE,
+        null=True
+    )
+    applicant = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        null=True
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=JobAppStatus,
+        default=JobAppStatus.PENDING
+    )
+    
+    appliedOn = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        """Sets ordering of JobApplication Model"""
+        ordering = ["status", "-appliedOn"]
+        

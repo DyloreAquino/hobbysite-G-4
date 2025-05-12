@@ -1,6 +1,6 @@
 """Admin file."""
 from django.contrib import admin
-from .models import Commission, Job
+from .models import Commission, Job, JobApplication
 # Register your models here.
 
 
@@ -28,5 +28,18 @@ class JobAdmin(admin.ModelAdmin):
         'status'
     )
 
+
+class JobAppAdmin(admin.ModelAdmin):
+    """Admin access to JobApplication"""
+
+    model = JobApplication
+
+    list_display = (
+        'job',
+        'status',
+        'appliedOn'
+    )
+
 admin.site.register(Commission, CommissionAdmin)
 admin.site.register(Job, JobAdmin)
+admin.site.register(JobApplication, JobAppAdmin)
