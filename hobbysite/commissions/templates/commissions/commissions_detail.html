@@ -9,13 +9,26 @@
 <h3>{{ object.title }}</h3>
 
 <p>
-    Needs: {{ object.required_people }} people <br>
+    Author: {{ object.author }} <br>
+    Status: {{ object.get_status_display }} <br>
+    Needed Manpower: {{ object.required_people }} <br>
     Created on: {{ object.created_on }} <br>
     Updated on: {{ object.updated_on }} <br>
     <br>
     {{ object.description }}
 </p>
 
+<h3>Jobs</h3>
+{% for job in object.job.all %}
+    <ul>
+        <li>{{ job.role }} <br>
+            <ul>
+                Total Manpower: {{ job.manpower_required }} <br>
+                Open Manpower:
+            </ul>
+        </li>
+    </ul>
+{% endfor %}
 <a href="/commissions/list">
     Go back to commissions list.
 </a>
