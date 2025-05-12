@@ -16,6 +16,40 @@ https://docs.djangoproject.com/en/5.1/ref/templates/builtins/#regroup
 https://www.w3schools.com/django/ref_tags_regroup.php
 {% endcomment %}
 
+{% if request.user.is_authenticated %}
+
+<b>Created Commissions</b>
+	<ul>
+	{% for commission in object_list %}
+		{% if commission.author == request.user.profile %}
+		<li>
+			<a href="{{ commission.get_absolute_url }}">
+				{{ commission.title }}
+			</a>
+		</li>
+		{% endif %}
+	{% endfor %}
+	</ul>
+
+<b>Commissions Applied To</b>
+	<ul>
+	{% for commission in object_list %}
+		{% for job in commission.job.all %}
+			{% for application in job.job_application.all %}
+				{% if application.applicant == request.user.profile %}
+					<li>
+						<a href="{{ commission.get_absolute_url }}">
+							{{ commission.title }}
+						</a>
+					</li>
+				{% endif %}
+			{% endfor %}
+		{% endfor %}
+	{% endfor %}
+	</ul>
+{% endif %}
+
+<h3>All Commissions</h3>
 <ul>
 	{% for commission in commissions_list %}
 		<li><b>{{ commission.grouper }}</b>
