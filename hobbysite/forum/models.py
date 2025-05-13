@@ -40,6 +40,9 @@ class Thread(models.Model):
 
     def get_absolute_url(self):
         return reverse('forum:thread-detail', args=[self.pk])
+    
+    def get_edit_url(self):
+        return reverse('forum:thread-update', args=[self.pk])
         
 
 class Comment(models.Model):
@@ -51,7 +54,8 @@ class Comment(models.Model):
     thread = models.ForeignKey(
         Thread,
         on_delete=models.CASCADE,
-        null=False
+        null=False,
+        related_name='comments'
     )
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
@@ -61,4 +65,4 @@ class Comment(models.Model):
         ordering = ['created_on'] 
 
     def __str__(self):
-        return str(self.entry) #--change
+        return str(self.entry)
