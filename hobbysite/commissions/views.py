@@ -1,13 +1,13 @@
 """Views file."""
-from .models import Commission
-from django.shortcuts import render
+from .models import Commission, Job
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.forms import BaseFormSet, formset_factory
+from django.urls import reverse
+from django.shortcuts import redirect
 
-from .forms import CommissionAddForm, JobAddForm
+from .forms import CommissionAddForm, JobFormSet
 
 
 class CommissionListView(ListView):
@@ -31,7 +31,6 @@ class CommissionCreateView(LoginRequiredMixin, CreateView):
     form_class = CommissionAddForm
 
     def get_context_data(self, **kwargs):
-        JobFormSet = formset_factory(JobAddForm, extra=3, can_delete=True)
         ctx = super().get_context_data(**kwargs)
         ctx['formset'] = JobFormSet()
         return ctx
