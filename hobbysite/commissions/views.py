@@ -4,8 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse
-from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
 
 from .forms import CommissionAddForm, JobFormSet
 
@@ -33,13 +32,14 @@ class CommissionCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['formset'] = JobFormSet()
+        ctx['comm_form'] = CommissionAddForm()
         return ctx
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
-    
-    def form_valid(self, form):
-        form.instance.author = self.request.user.profile
-        return super().form_valid(form)
+
+    def form_valid(self, comm_form):
+        comm_form.instance.author = self.request.user.profile
+        return super().form_valid(comm_form)

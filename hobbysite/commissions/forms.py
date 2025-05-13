@@ -24,5 +24,4 @@ class JobAddForm(forms.ModelForm):
         model = Job
         exclude = ['commission']
 
-
 JobFormSet = formset_factory(JobAddForm)
