@@ -13,5 +13,13 @@
 	Price: ₱{{ object.price }} <br> <br>
 	{{ object.description }}
 </p>
+
+<p>
+    <a href="/merchstore/item/{{ object.pk }}/edit">
+        Edit this product.
+    </a>
+</p>
+
+<br>
 <a href="/merchstore/items"> Go back to product list. </a>
 {% endblock %}
