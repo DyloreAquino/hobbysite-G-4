@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load jobappcounter %}
 
 {% block title %} Commissions {% endblock %}
 
@@ -24,7 +25,8 @@
         <li>{{ job.role }} <br>
             <ul>
                 Total Manpower: {{ job.manpower_required }} <br>
-                Open Manpower:
+                Open Manpower: 
+                {% get_open_slots_count job.manpower_required job.job_application "2" %}
             </ul>
         </li>
     </ul>
