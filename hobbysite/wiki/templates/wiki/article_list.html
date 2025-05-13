@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Wiki{% endblock %}
+
+{% block content %}
+    <h2>
+        Online Wiki
+    </h2>
+    <hr>
+    <a href="article/add">
+        Create Article
+    </a>
+    {% if request.user.is_authenticated %}
+        <h3>
+            My Articles
+        </h3>
+            {% for article in object_list %}
+            <ul>
+                {% if article.author.user == request.user %}
+                        <a href="{{ article.get_absolute_url }}">
+                            {{ article.title }}
+                        </a>
+                {% endif %}
+            </ul>
+            {% endfor %}
+            <br>
+            <h3>
+                All Articles
+            </h3>
+            {% for category in categories %}
+                <h4>
+                    {{ category.name }}
+                </h4>
+                {% for article in category.article.all %}
+                    <ul>
+                        {% if article.author.user != request.user %}
+                            <a href="{{ article.get_absolute_url }}">
+                            {{article.title}}
+                    </ul>
+                {% endfor %}
+            {% endfor %}
+    {% else %}
+        <h3>
+            All Articles
+        </h3>
+        {% for category in categories %}
+            <h4>
+                {{ category.name }}
+            </h4>
+            {% for article in category.article.all %}
+            <ul>
+                <a href="{{article.get_absolute_url}}">
+                    {{ article.title }}
+                </a>
+            </ul>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

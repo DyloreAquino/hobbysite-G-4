@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Wiki{% endblock %}
+
+{% block content %}
+    <h2>
+        Wiki
+    </h2>
+    <hr>
+    <h3>
+        {{ article.name }}
+    </h3>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">
+            Submit
+        </button>
+    </form>
+
+    <a href="/wiki/articles">
+        Back to articles.
+    </a>
+{% endblock %}

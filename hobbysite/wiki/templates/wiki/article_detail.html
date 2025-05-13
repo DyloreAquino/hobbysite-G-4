@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Wiki{% endblock %}
+
+{% block content %}
+    <h2>
+        Online Wiki
+    </h2>
+    <hr>
+    <h3>
+        {{ article.title }}
+    </h3>
+    <p>
+        Category: {{ article.category }} <br>
+        Created On: {{ article.created_on }} <br>
+        Updated On: {{ article.updated_on }} <br><br>
+
+        {{ article.entry }}
+    </p>
+
+    <h4>
+        Read more from {{ article.category }}:
+    </h4>
+    {% for other_article in article.category.article.all %}
+        {% if other_article != article %}
+            <ul>
+                <a href="{{ other_article.get_absolute_url}}">
+                    {{ other_article }}
+                </a>
+            </ul>
+        {% endif %}
+    {% endfor %}
+    
+    {% if request.user.is_authenticated %}
+            <a href="/wiki/<int:pk>/edit">
+                Edit article
+            </a>
+    {% endif %}
+
+    <a href="/wiki/articles">
+        Browse other articles.
+    </a>
+{% endblock %}

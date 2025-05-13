@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from user_management.models import Profile
 
 
 class ArticleCategory(models.Model):
@@ -18,13 +19,18 @@ class ArticleCategory(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
-    category = models.ForeignKey(
-        ArticleCategory,
+    author = models.ForeignKey(
+        Profile,
         on_delete=models.SET_NULL,
         null=True
     )
+    category = models.ForeignKey(
+        ArticleCategory,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='article'
+    )
     entry = models.TextField()
-
     # https://www.geeksforgeeks.org/datetimefield-django-models/
     # https://stackoverflow.com/questions/56310322/django-datetimefield-with-auto-now-add-asks-for-default
     created_on = models.DateTimeField(auto_now_add=True)
@@ -40,3 +46,30 @@ class Article(models.Model):
         ordering = ['-created_on']
         verbose_name = 'article'
         verbose_name_plural = 'articles'
+
+
+class Comment(models.Model):
+    author = models.ForeignKey(
+        Profile,
+        on_delete=models.SET_NULL,
+        null=True
+    )
+    article = models.ForeignKey(
+        Article,
+        on_delete=models.CASCADE,
+        null=True
+    )
+    entry = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('wiki:article-detail', args=[self.pk])
+
+    class Meta:
+        ordering = ['created_on']
+        verbose_name = 'comments'
+        verbose_name_plural = 'comments'
