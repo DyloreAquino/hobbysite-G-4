@@ -9,6 +9,11 @@
 <h3>{{ object.title }}</h3>
 
 <p>
+    {% if object.author == request.user.profile %}
+        {# TODO: add hyperlink later #}
+        Edit this commission <br><br>
+    {% endif %}
+
     Author: {{ object.author }} <br>
     Status: {{ object.get_status_display }} <br>
     Needed Manpower: {{ object.required_people }} <br>
@@ -27,7 +32,13 @@
             Open Manpower: {{ job.get_open_slots_count }} <br>
 
             {% if request.user.is_authenticated %}
-                <button type="button">Apply to Job</button>
+                {% if job.get_open_slots_count != 0 %}
+                    <button type="button">
+                {% else %}
+                    <button type="button" disabled>
+                {% endif %}
+                        Apply to Job
+                    </button>
             {% endif %}
         </ul>
         </li>
