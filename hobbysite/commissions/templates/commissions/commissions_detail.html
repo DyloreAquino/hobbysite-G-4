@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load jobappcounter %}
 
 {% block title %} Commissions {% endblock %}
 
@@ -23,11 +22,14 @@
 {% for job in object.job.all %}
     <ul>
         <li>{{ job.role }} <br>
-            <ul>
-                Total Manpower: {{ job.manpower_required }} <br>
-                Open Manpower: 
-                {% get_open_slots_count job.manpower_required job.job_application "2" %}
-            </ul>
+        <ul>
+            Total Manpower: {{ job.manpower_required }} <br>
+            Open Manpower: {{ job.get_open_slots_count }} <br>
+
+            {% if request.user.is_authenticated %}
+                <button type="button">Apply to Job</button>
+            {% endif %}
+        </ul>
         </li>
     </ul>
 {% endfor %}

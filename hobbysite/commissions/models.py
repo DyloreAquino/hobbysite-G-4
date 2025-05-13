@@ -91,6 +91,10 @@ class Job(models.Model):
         Sets the name of the job to be human readable
         """
         return f"{self.commission.title} {self.role}"
+    
+    def get_open_slots_count(self):
+        slots_filled = len(self.job_application.all().filter(status="2"))
+        return self.manpower_required - slots_filled
 
 
 class JobApplication(models.Model):
