@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Forum
+{% endblock %}
+
+{% block content %}
+    <h2>
+        Forum
+    </h2>
+    <hr>
+    <h3>
+        {{ thread.title }}
+    </h3>
+    <p>
+        Category: {{ thread.category }} <br>
+        Created on: {{ thread.created_on }} <br>
+        Last updated on: {{ thread.updated_on}} <br><br>
+        
+        {{ thread.entry }}
+    </p>
+	
+	<h4>
+		Other posts:
+	</h4>
+		{% for other_thread in thread.category.threads.all %}
+			{% if other_thread != thread %}
+				<ul>
+					<a href="{{ other_thread.get_absolute_url }}">
+						{{ other_thread }}
+					</a>
+				</ul>
+			{% endif %}
+		{% endfor %}
+	
+    <a href="/forum/threads">
+        Browse threads.
+    </a>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>
+        Forum
+    </h2>
+    <hr>
+		
+	<a href="thread/add">
+		Create Thread
+	<a/>
+	
+	{% if request.user.is_authenticated %}
+		<h3>
+			My Threads
+		</h3>
+		
+		{% for thread in object_list %}
+		<ul>
+			{% if thread.author.user == request.user %}
+				<a href="{{ thread.get_absolute_url }}">
+					{{ thread }}
+				</a>
+			{% endif %}
+		</ul>
+		{% endfor %}
+		<br>
+		<h3>
+			All Threads
+		</h3>
+		{% for category in categories %}
+			<h4> {{ category.name }} </h4>
+			{% for thread in category.threads.all %}
+				<ul>
+					{% if thread.author.user != request.user %}
+						<a href="{{ thread.get_absolute_url }}">
+							{{ thread }}
+						</a>
+					{% endif %}
+				</ul>
+			{% endfor %}
+		{% endfor %}
+	{% else %}
+		<h3>
+			All Threads
+		</h3>
+		{% for category in categories %}
+			<h4> {{ category.name }} </h4>
+			{% for thread in category.threads.all %}
+			<ul>
+				<a href="{{ thread.get_absolute_url }}">
+					{{ thread }}
+				</a>
+			</ul>
+			{% endfor %}
+		{% endfor %}
+	{% endif %}		
+{% endblock %}
