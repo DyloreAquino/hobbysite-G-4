@@ -20,6 +20,7 @@ class Product(models.Model):
         on_delete=models.SET_NULL,
         null = True
     )
+    owner = models.ForeignKey(Profile, on_delete=models.CASCADE)
     description = models.TextField(default="No description available.")
     price = models.DecimalField(max_digits=63, decimal_places=2)
     stock = models.PositiveIntegerField()
