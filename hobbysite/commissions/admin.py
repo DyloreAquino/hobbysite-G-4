@@ -6,8 +6,12 @@ from .models import Commission, Job, JobApplication
 
 class JobAppAdmin(admin.TabularInline):
     """Admin access to JobApplication"""
-
     model = JobApplication
+    list_display = [
+        'applicant',
+        'status',
+    ]
+    readonly_fields = ['applied_on']
 
 
 class CommissionAdmin(admin.ModelAdmin):
