@@ -123,6 +123,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR/'media'
+
 # Login related stuff
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'

@@ -31,8 +31,7 @@ class Article(models.Model):
         related_name='article'
     )
     entry = models.TextField()
-    # https://www.geeksforgeeks.org/datetimefield-django-models/
-    # https://stackoverflow.com/questions/56310322/django-datetimefield-with-auto-now-add-asks-for-default
+    image = models.ImageField(null=True, upload_to='media/images/', blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 

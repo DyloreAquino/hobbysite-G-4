@@ -4,7 +4,6 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import ArticleForm, CommentForm
 from django.urls import reverse_lazy
-
 from .models import Article
 
 

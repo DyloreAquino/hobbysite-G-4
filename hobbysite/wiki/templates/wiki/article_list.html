@@ -15,13 +15,13 @@
             My Articles
         </h3>
             {% for article in object_list %}
-            <ul>
-                {% if article.author.user == request.user %}
-                        <a href="{{ article.get_absolute_url }}">
-                            {{ article.title }}
-                        </a>
-                {% endif %}
-            </ul>
+                <ul>
+                    {% if article.author.user == request.user %}
+                            <a href="{{ article.get_absolute_url }}">
+                                {{ article.title }}
+                            </a>
+                    {% endif %}
+                </ul>
             {% endfor %}
             <br>
             <h3>
@@ -36,6 +36,7 @@
                         {% if article.author.user != request.user %}
                             <a href="{{ article.get_absolute_url }}">
                             {{article.title}}
+                        {% endif %}
                     </ul>
                 {% endfor %}
             {% endfor %}
