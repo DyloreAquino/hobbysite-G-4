@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('forum/', include('forum.urls', namespace='forum')),
     path('blog/', include('blog.urls', namespace="blog")),
@@ -28,3 +31,5 @@ urlpatterns = [
     path('profile/', include('user_management.urls', namespace='user_management')),
     path('admin/', admin.site.urls),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
