@@ -15,7 +15,7 @@
 			My Threads
 		</h3>
 		
-		{% for thread in object_list %}
+		{% for thread in thread_list %}
 		<ul>
 			{% if thread.author.user == request.user %}
 				<a href="{{ thread.get_absolute_url }}">
@@ -29,30 +29,36 @@
 			All Threads
 		</h3>
 		{% for category in categories %}
-			<h4> {{ category.name }} </h4>
-			{% for thread in category.threads.all %}
-				<ul>
-					{% if thread.author.user != request.user %}
-						<a href="{{ thread.get_absolute_url }}">
-							{{ thread }}
-						</a>
-					{% endif %}
-				</ul>
-			{% endfor %}
+			<h4>
+				{{ category.name }}
+			</h4>
+				{% for thread in category.threads.all %}
+					<ul>
+						{% if thread.author.user != request.user %}
+							<a href="{{ thread.get_absolute_url }}">
+								{{ thread }}
+							</a>
+						{% endif %}
+					</ul>
+				{% endfor %}
 		{% endfor %}
 	{% else %}
 		<h3>
 			All Threads
 		</h3>
 		{% for category in categories %}
-			<h4> {{ category.name }} </h4>
-			{% for thread in category.threads.all %}
-			<ul>
-				<a href="{{ thread.get_absolute_url }}">
-					{{ thread }}
-				</a>
-			</ul>
-			{% endfor %}
+			{% with threads=category.threads %}
+				<h4>
+					{{ category.name }}
+				</h4>
+					{% for thread in threads.all %}
+						<ul>
+							<a href="{{ thread.get_absolute_url }}">
+								{{ thread }}
+							</a>
+						</ul>
+					{% endfor %}
+			{% endwith %}
 		{% endfor %}
 	{% endif %}		
 {% endblock %}

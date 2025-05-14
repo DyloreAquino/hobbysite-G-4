@@ -31,19 +31,22 @@
         {{ thread.entry }}
     </p>
 	
-	<h4>
-		Other threads in {{ thread.category }}
-	</h4>
-		{% for other_thread in thread.category.threads.all %}
-			{% if other_thread != thread %}
-				<ul>
-					<a href="{{ other_thread.get_absolute_url }}">
-						{{ other_thread }}
-					</a>
-				</ul>
-			{% endif %}
-		{% endfor %}
-	
+	{% with threads=thread.category.threads %}
+		{% if threads.all|length > 1 %}
+		<h4>
+			Other threads in {{ thread.category }}
+		</h4>
+			{% for other_thread in threads.all %}
+				{% if other_thread != thread %}
+					<ul>
+						<a href="{{ other_thread.get_absolute_url }}">
+							{{ other_thread }}
+						</a>
+					</ul>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	{% endwith %}
 	<h4>
 		Comments
 	</h4>
