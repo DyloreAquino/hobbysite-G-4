@@ -83,8 +83,10 @@ def handle_commission_update(request, pk):
 
         for form in job_forms:
             if form.is_valid():
-                form.save()
-        
+                print(form.instance.role)
+                print(form.instance.manpower_required)
+            #form.save()
+    
         return redirect(reverse('commissions:commissions-detail', args=[pk]))
     
     ctx["commission"] = commission

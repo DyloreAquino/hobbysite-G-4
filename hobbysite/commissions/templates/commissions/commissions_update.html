@@ -8,16 +8,23 @@
 
 <form method="POST">
     {% csrf_token %}
-        {{ comm_form.as_p }}
-        Created On: {{ commission.created_on }}
-        <br>
-        <h3>Jobs</h3>
-        {% for job_form in job_forms %}
-            <ul>{{ job_form.as_p }}</ul>
-            <br>
-        {% endfor %}
-    <button type="submit">Submit</button>
+        {{ comm_form }}
+        Created On: {{ commission.created_on }}<br>
+        <button type="submit" name="update_commission">Submit</button>
 </form>
+<br>
+
+<h3>Jobs</h3>
+
+    {% for job_form in job_forms %}
+    <form method="POST">
+        {% csrf_token %}
+        <ul>{{ job_form }}</ul>
+    </form>
+    {% endfor %}
+
+
+<br>
 <a href="{% url 'commissions:commissions-detail' pk=commission.pk %}">
     Go back to commission detail view.
 </a><br>
