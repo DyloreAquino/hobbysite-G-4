@@ -70,11 +70,13 @@ def handle_commission_update(request, pk):
     commission = get_object_or_404(Commission, id=pk)
 
     comm_form = CommissionForm(request.POST or None, instance=commission)
+    comm_form.fields['author'].disabled = True
 
     if comm_form.is_valid():
         comm_form.save()
         return redirect(reverse('commissions:commissions-detail', args=[pk]))
     
     ctx["comm_form"] = comm_form
+    ctx["commission"] = commission
 
     return render(request, "commissions/commissions_update.html", ctx)

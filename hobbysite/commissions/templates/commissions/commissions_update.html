@@ -3,15 +3,21 @@
 {% block title %}Create Commission{% endblock %}
 
 {% block content %}
-<h2>Update Commission: NAME</h2>
+<h2>Update Commission: {{ commission.title }}</h2>
 <hr>
 
 <form method="POST">
     {% csrf_token %}
         {{ comm_form }}
+        Created On: {{ commission.created_on }}
+        <br>
+        <br>
 
     <button type="submit">Submit</button>
 </form>
+<a href="{% url 'commissions:commissions-detail' pk=commission.pk %}">
+    Go back to commission detail view.
+</a><br>
 <a href="{% url 'commissions:commissions-list' %}">
     Go back to commissions list.
 </a>
