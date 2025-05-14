@@ -3,7 +3,7 @@ from django import forms
 from .models import Commission, Job
 
 
-class CommissionAddForm(forms.ModelForm):
+class CommissionForm(forms.ModelForm):
     class Meta:
         model = Commission
         fields = '__all__'
@@ -18,7 +18,7 @@ class CommissionAddForm(forms.ModelForm):
             self.fields['author'].disabled = True
 
 
-class JobAddForm(forms.ModelForm):
+class JobForm(forms.ModelForm):
     class Meta:
         model = Job
         exclude = ['commission']

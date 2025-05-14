@@ -3,15 +3,13 @@
 {% block title %}Create Commission{% endblock %}
 
 {% block content %}
-<h2>Create New Commissions</h2>
+<h2>Update Commission: NAME</h2>
 <hr>
 
 <form method="POST">
     {% csrf_token %}
         {{ comm_form }}
 
-        <h3>Add Jobs:</h3>
-        {{ job_form }}
     <button type="submit">Submit</button>
 </form>
 <a href="{% url 'commissions:commissions-list' %}">
