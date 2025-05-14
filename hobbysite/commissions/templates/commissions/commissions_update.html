@@ -11,8 +11,12 @@
         {{ comm_form.as_p }}
         Created On: {{ commission.created_on }}
         <br>
-        <br>
-
+        <h3>Jobs</h3>
+        {{ jobs }}
+        {% for job in jobs %}
+            {{ job_form.as_p }}
+            <hr>
+        {% endfor %}
     <button type="submit">Submit</button>
 </form>
 <a href="{% url 'commissions:commissions-detail' pk=commission.pk %}">

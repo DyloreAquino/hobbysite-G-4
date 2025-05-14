@@ -66,17 +66,28 @@ def handle_commission_update(request, pk):
     of multiple forms at once
     """
     ctx = {}
-
+    
     commission = get_object_or_404(Commission, id=pk)
 
     comm_form = CommissionForm(request.POST or None, instance=commission)
     comm_form.fields['author'].disabled = True
 
+    jobs = commission.job.all()
+
+    for job in jobs:
+        job_form = JobForm(request.POST or None, instance=job)
+
     if comm_form.is_valid():
         comm_form.save()
         return redirect(reverse('commissions:commissions-detail', args=[pk]))
     
-    ctx["comm_form"] = comm_form
+    if job_form.is_valid():
+        job_form.save()
+        return redirect(reverse('commissions:commissions-detail', args=[pk]))
+    
     ctx["commission"] = commission
+    ctx["comm_form"] = comm_form
+    ctx["jobs"] = jobs
+    ctx["job_form"] = job_form
 
     return render(request, "commissions/commissions_update.html", ctx)
