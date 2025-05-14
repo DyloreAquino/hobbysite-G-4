@@ -1,25 +1,28 @@
 {% extends 'base.html' %}
 
-{% block title %}Wiki{% endblock %}
+{% block title %}
+    Wiki
+{% endblock %}
 
 {% block content %}
     <h2>
         Wiki
     </h2>
     <hr>
-    <h3>
-        {{ article.name }}
-    </h3>
-
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">
-            Submit
-        </button>
-    </form>
-
-    <a href="/wiki/articles">
-        Back to articles.
-    </a>
+        {% if request.user.is_authenticated %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">
+                    Submit
+                </button>
+            </form>
+        {% else %}
+            <p>
+                You need to be logged in to create new articles.
+                <a href="{% url 'login' %}">
+                    Log in here!
+                </a>
+            </p>
+        {% endif %}
 {% endblock %}

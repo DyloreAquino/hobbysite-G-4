@@ -13,8 +13,6 @@ class ArticleCategory(models.Model):
 
     class Meta:
         ordering = ['name']  # Order by name in ascending order
-        verbose_name = 'article_category'
-        verbose_name_plural = 'article_categories'
 
 
 class Article(models.Model):
@@ -28,10 +26,10 @@ class Article(models.Model):
         ArticleCategory,
         on_delete=models.SET_NULL,
         null=True,
-        related_name='article'
+        related_name='articles'
     )
     entry = models.TextField()
-    image = models.ImageField(null=True, upload_to='media/images/', blank=True)
+    image = models.ImageField(upload_to='images/', null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -41,10 +39,11 @@ class Article(models.Model):
     def get_absolute_url(self):
         return reverse('wiki:article-detail', args=[self.pk])
 
+    def get_edit_url(self):
+        return reverse('wiki:article-update', args=[self.pk])
+
     class Meta:
         ordering = ['-created_on']
-        verbose_name = 'article'
-        verbose_name_plural = 'articles'
 
 
 class Comment(models.Model):
@@ -56,7 +55,8 @@ class Comment(models.Model):
     article = models.ForeignKey(
         Article,
         on_delete=models.CASCADE,
-        null=True
+        null=True,
+        related_name='comments'
     )
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
@@ -65,10 +65,5 @@ class Comment(models.Model):
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
-        return reverse('wiki:article-detail', args=[self.pk])
-
     class Meta:
         ordering = ['created_on']
-        verbose_name = 'comments'
-        verbose_name_plural = 'comments'
