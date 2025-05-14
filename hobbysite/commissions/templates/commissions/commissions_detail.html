@@ -10,8 +10,9 @@
 
 <p>
     {% if object.author == request.user.profile %}
-        {# TODO: add hyperlink later #}
+        <a href="{% url 'commissions:commissions-update' pk=object.pk %}">
             Edit this commission
+        </a>
         <br><br>
     {% endif %}
 

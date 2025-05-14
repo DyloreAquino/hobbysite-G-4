@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Create Commission{% endblock %}
+{% block title %}Update Commission{% endblock %}
 
 {% block content %}
 <h2>Update Commission: {{ commission.title }}</h2>
@@ -8,7 +8,7 @@
 
 <form method="POST">
     {% csrf_token %}
-        {{ comm_form }}
+        {{ comm_form.as_p }}
         Created On: {{ commission.created_on }}
         <br>
         <br>
