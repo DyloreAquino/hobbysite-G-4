@@ -19,7 +19,7 @@ class ArticleListView(ListView):
         author = self.request.user
         if hasattr(author, 'profile'):
             for category in categories:
-                if category.articles.exclude(author=author.profile).first() == None:
+                if category.articles.exclude(author=author.profile).first() is None:
                     remove.append(category.name)
 
         relevant_categories = ArticleCategory.objects.exclude(name__in=remove)
@@ -37,7 +37,7 @@ class ArticleDetailView(LoginRequiredMixin, DetailView):
         context['comments'] = self.object.comments.all()
         context['form'] = CommentForm()
         return context
-    
+
     def post(self, request, *args, **kwargs):
         article = self.get_object()
         form = CommentForm(request.POST)
@@ -47,10 +47,12 @@ class ArticleDetailView(LoginRequiredMixin, DetailView):
             comment.author = self.request.user.profile
             comment.article = article
             comment.save()
-            return redirect(reverse('wiki:article-detail', kwargs={'pk': article.pk}))
-        
+            return redirect(reverse('wiki:article-detail',
+                                    kwargs={'pk': article.pk}))
+
         context = self.get_context_data(form=form)
         return self.render_to_response(context)
+
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
     model = Article
@@ -59,7 +61,7 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('wiki:article-list')
-    
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
@@ -69,14 +71,16 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user.profile
         return super().form_valid(form)
 
+
 class ArticleUpdateView(LoginRequiredMixin, UpdateView):
     model = Article
     template_name = 'wiki/article_update.html'
     form_class = ArticleUpdateForm
 
     def get_success_url(self):
-        return reverse_lazy('wiki:article-detail', kwargs={'pk': self.kwargs['pk']})
-    
+        return reverse_lazy('wiki:article-detail',
+                            kwargs={'pk': self.kwargs['pk']})
+
     def form_valid(self, form):
         form.instance.author = self.request.user.profile
         return super().form_valid(form)
