@@ -1,20 +1,59 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2> 
-        Blog 
+    <h2>
+        Blog
     </h2>
     <hr>
-    <h3> 
-        Article List 
-    </h3>
-    <ul>
-        {% for article in object_list %}
-        <li>
-            <a href="{{ article.get_absolute_url }}">
-                {{ article }}
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
+
+	<a href="/blog/article/add">
+		Create Article
+	<a/>
+
+	{% if request.user.is_authenticated %}
+		<h3>
+			My Articles
+		</h3>
+
+		{% for article in object_list %}
+		<ul>
+			{% if article.author.user == request.user %}
+				<a href="{{ article.get_absolute_url }}">
+					{{ article }}
+				</a>
+			{% endif %}
+		</ul>
+		{% endfor %}
+		<br>
+
+		<h3>
+			All Articles
+		</h3>
+		{% for category in categories %}
+			<h4> {{ category.name }} </h4>
+			{% for article in category.articles.all %}
+				<ul>
+					{% if article.author.user != request.user %}
+						<a href="{{ article.get_absolute_url }}">
+							{{ article }}
+						</a>
+					{% endif %}
+				</ul>
+			{% endfor %}
+		{% endfor %}
+	{% else %}
+		<h3>
+			All Articles
+		</h3>
+		{% for category in categories %}
+			<h4> {{ category.name }} </h4>
+			{% for article in category.articles.all %}
+			<ul>
+				<a href="{{ article.get_absolute_url }}">
+					{{ article }}
+				</a>
+			</ul>
+			{% endfor %}
+		{% endfor %}
+	{% endif %}		
 {% endblock %}
