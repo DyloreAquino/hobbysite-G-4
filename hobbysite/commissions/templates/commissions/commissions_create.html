@@ -5,13 +5,9 @@
 {% block content %}
     <form method="POST">
         {% csrf_token %}
-            {{ form }}
+            {{ comm_form }}
 
             <h3>Add Jobs:</h3>
-            {{ formset.management_form }}
-            {% for forms in formset %}
-                <ul>{{ forms }}</ul>
-            {% endfor %}
         <button type="submit">Submit</button>
     </form>
 {% endblock %}

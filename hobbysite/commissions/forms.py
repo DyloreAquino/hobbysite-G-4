@@ -1,5 +1,4 @@
 from django import forms
-from django.forms import formset_factory
 
 from .models import Commission, Job
 
@@ -23,5 +22,3 @@ class JobAddForm(forms.ModelForm):
     class Meta:
         model = Job
         exclude = ['commission']
-
-JobFormSet = formset_factory(JobAddForm)

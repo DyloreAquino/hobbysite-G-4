@@ -1,9 +1,7 @@
 """Urls file."""
 from django.urls import path
-from .views import (
-    CommissionListView, CommissionDetailView,
-    CommissionCreateView
-)
+from . import views
+from .views import CommissionListView, CommissionDetailView
 
 urlpatterns = [
     path('list',
@@ -13,7 +11,7 @@ urlpatterns = [
          CommissionDetailView.as_view(),
          name='commissions-detail'),
      path('add/', 
-          CommissionCreateView.as_view(),
+          views.handle_commission_add_page,
           name='commission-add')
 ]
 
