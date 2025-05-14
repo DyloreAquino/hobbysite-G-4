@@ -47,9 +47,9 @@ class Product(models.Model):
         return reverse('merchstore:product_detail', args=[self.pk])
     
 class Transaction(models.Model):
-    buyer = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    amount = models.PositiveIntegerField
+    buyer = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='transactions')
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name='transactions')
+    amount = models.PositiveIntegerField()
     
     ONCART = "on_cart"
     TOPAY = "to_pay"
@@ -68,3 +68,6 @@ class Transaction(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     
     created_on = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f'{self.buyer} bought {self.product}'
