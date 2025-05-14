@@ -16,7 +16,23 @@
     Status: {{ object.status }} <br>
     <br>
 	{{ object.description }}
+    <br>
 </p>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form }}
+    {{ form.errors }}
+    {% if object.stock > 0 %}
+        <button type="submit">
+            Buy this product!
+        </button>
+    {% else %}
+        <button type="submit" disabled>
+            Sold out!
+        </button>
+    {% endif %}
+</form>
 
 <p>
     <a href="/merchstore/item/{{ object.pk }}/edit">

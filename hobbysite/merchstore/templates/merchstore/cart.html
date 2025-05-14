@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2> My Cart </h2>
+<hr>
+
+	{% for owner, transactions in grouped_transactions %}
+        <h3>From {{ owner.display_name }}</h3>
+        {% for transaction in transactions %}
+            <p>{{ transaction.product.name }}
+            <br>Amount: {{ transaction.amount }}
+            <br>Status: {{ transaction.status }}
+            <br>Created on {{ transaction.created_on}}</p>
+            <br>
+        {% endfor %}
+    {% endfor %}
+
+{% endblock %}

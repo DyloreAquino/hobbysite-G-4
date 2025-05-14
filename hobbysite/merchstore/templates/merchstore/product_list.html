@@ -6,16 +6,46 @@
 {% block content %}
 <h2> Merchstore </h2>
 <hr>
-<h3> Products </h3> 
+<h3> Products List </h3> 
+
+{% if request.user.is_authenticated %}
+	<h4> My Products </h4>
+	
+	<ul>
+	{% for product in object_list %}
+		{% if product.owner == request.user.profile %}
+			<li>
+				<a href="{{ product.get_absolute_url }}">
+				{{ product.name }}
+				</a>
+			</li>
+		{% endif %}
+	{% endfor %}
+	</ul>
+
+{% endif %}
+
+<h4> All Products </h4>
 
 <ul>
-	{% for product in object_list %}
-	<li>
-		<a href="{{ product.get_absolute_url }}">
-		{{ product.name }}
-		</a>
-	</li>
-	{% endfor %}
+{% for product in object_list %}
+
+	{% if request.user.is_authenticated %}
+		{% if product.owner != request.user.profile %}
+			<li>
+				<a href="{{ product.get_absolute_url }}">
+					{{ product.name }}
+				</a>
+			</li>
+		{% endif %}
+	{% else %}
+		<li>
+			<a href="{{ product.get_absolute_url }}">
+				{{ product.name }}
+			</a>
+		</li>
+	{% endif%}
+{% endfor %}
 </ul>
 
 <br>
