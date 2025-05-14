@@ -15,9 +15,20 @@ class ThreadListView(ListView):
     template_name = 'forum/thread_list.html'
     
     def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx['categories'] = ThreadCategory.objects.all()
-        return ctx
+        context = super().get_context_data(**kwargs)
+        author = self.request.user.profile
+        
+        categories = ThreadCategory.objects.all()
+        remove = []
+        
+        for category in categories:     
+            if category.threads.exclude(author=author).first() == None:
+                remove.append(category.name)
+        
+        relevant_categories = ThreadCategory.objects.exclude(name__in=remove)
+        
+        context['categories'] = relevant_categories
+        return context
 
 
 class ThreadDetailView(DetailView):
@@ -26,10 +37,10 @@ class ThreadDetailView(DetailView):
     context_object_name = 'thread'
     
     def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx['comments'] = self.object.comments.all()  
-        ctx['form'] = CommentForm()
-        return ctx
+        context = super().get_context_data(**kwargs)
+        context['comments'] = self.object.comments.all()  
+        context['form'] = CommentForm()
+        return context
 
     def post(self, request, *args, **kwargs):
         thread = self.get_object()
