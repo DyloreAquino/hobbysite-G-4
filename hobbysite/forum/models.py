@@ -28,7 +28,7 @@ class Thread(models.Model):
         related_name = 'threads'
     )
     entry = models.TextField()
-    image = models.ImageField(null=True, upload_to='media/images/', blank=True)
+    image = models.ImageField(null=True, upload_to='images/', blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
