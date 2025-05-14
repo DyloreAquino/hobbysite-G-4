@@ -5,7 +5,7 @@ from .models import Transaction, Product
 class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
-        fields = '__all__'
+        fields = ['amount']
 
 
 class ProductForm(forms.ModelForm):
@@ -29,10 +29,6 @@ class ProductUpdateForm(forms.ModelForm):
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
-        print(self.instance.stock)
-        print(self.instance.OUTOFSTOCK)
-        print(self.instance.status)
         
         if self.instance.stock == 0:
             self.fields['status'].initial = self.instance.OUTOFSTOCK
