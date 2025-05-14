@@ -3,7 +3,8 @@ from django.urls import path
 from . import views
 from .views import (
     CommissionListView, 
-    CommissionDetailView)
+    CommissionDetailView,
+    CommissionUpdateView)
 
 urlpatterns = [
     path('list',
@@ -13,7 +14,7 @@ urlpatterns = [
          CommissionDetailView.as_view(),
          name='commissions-detail'),
     path('<int:pk>/edit',
-         views.handle_commission_update,
+         CommissionUpdateView.as_view(),
          name='commissions-update'),
     path('add/', 
           views.handle_commission_add_page,

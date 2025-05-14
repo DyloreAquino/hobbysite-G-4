@@ -59,38 +59,10 @@ def handle_commission_add_page(request):
         'job_form': job_form,
     })
 
-@login_required
-def handle_commission_update(request, pk):
-    """
-    Allows for commission update handling
-    of multiple forms at once
-    """
-    ctx = {}
-    
-    commission = get_object_or_404(Commission, id=pk)
 
-    comm_form = CommissionForm(request.POST or None, instance=commission)
-    comm_form.fields['author'].disabled = True
+class CommissionUpdateView(LoginRequiredMixin, UpdateView):
+    """Update View of Commissions"""
 
-    jobs = commission.job.all()
-    job_forms = []
-
-    for job in jobs:
-        job_forms.append(JobForm(request.POST or None, instance=job))
-
-    if comm_form.is_valid():
-        comm_form.save()
-
-        for form in job_forms:
-            if form.is_valid():
-                print(form.instance.role)
-                print(form.instance.manpower_required)
-            #form.save()
-    
-        return redirect(reverse('commissions:commissions-detail', args=[pk]))
-    
-    ctx["commission"] = commission
-    ctx["comm_form"] = comm_form
-    ctx["job_forms"] = job_forms
-
-    return render(request, "commissions/commissions_update.html", ctx)
+    model = Commission
+    template_name = 'commissions/commissions_update.html'
+    form_class = CommissionForm
