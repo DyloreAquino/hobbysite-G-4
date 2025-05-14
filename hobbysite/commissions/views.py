@@ -5,11 +5,10 @@ from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import (render,
-                              redirect,
-                              get_object_or_404)
+                              redirect)
 from django.urls import reverse
 
-from .forms import CommissionForm, JobForm
+from .forms import CommissionForm, JobForm, JobAppForm
 from .models import Commission
 
 
@@ -25,6 +24,22 @@ class CommissionDetailView(LoginRequiredMixin, DetailView):
 
     model = Commission
     template_name = 'commissions/commissions_detail.html'
+    
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['form'] = JobAppForm()
+        return ctx
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = JobAppForm(request.POST)
+        if form.is_valid():
+            job_app = form.save(commit=False)
+            job_app.applicant = self.request.user.profile
+
+            job_app.save()
+
+        return self.render_to_response(self.get_context_data(form = form))
 
 
 @login_required

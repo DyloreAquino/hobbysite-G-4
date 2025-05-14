@@ -34,13 +34,17 @@
             Open Manpower: {{ job.get_open_slots_count }} <br>
 
             {% if request.user.is_authenticated %}
-                {% if job.get_open_slots_count != 0 %}
-                    <button type="button">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form }}
+                {% if job.get_open_slots_count > 0 %}
+                    <button type="submit">
                 {% else %}
-                    <button type="button" disabled>
+                    <button type="submit" disabled>
                 {% endif %}
                         Apply to Job
                     </button>
+                </form>
             {% endif %}
         </ul>
         </li>
