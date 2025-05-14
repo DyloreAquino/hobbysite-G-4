@@ -59,7 +59,7 @@ def handle_commission_add_page(request):
         'job_form': job_form,
     })
 
-
+@login_required
 def handle_commission_update(request, pk):
     """
     Allows for commission update handling
@@ -73,21 +73,22 @@ def handle_commission_update(request, pk):
     comm_form.fields['author'].disabled = True
 
     jobs = commission.job.all()
+    job_forms = []
 
     for job in jobs:
-        job_form = JobForm(request.POST or None, instance=job)
+        job_forms.append(JobForm(request.POST or None, instance=job))
 
     if comm_form.is_valid():
         comm_form.save()
-        return redirect(reverse('commissions:commissions-detail', args=[pk]))
-    
-    if job_form.is_valid():
-        job_form.save()
+
+        for form in job_forms:
+            if form.is_valid():
+                form.save()
+        
         return redirect(reverse('commissions:commissions-detail', args=[pk]))
     
     ctx["commission"] = commission
     ctx["comm_form"] = comm_form
-    ctx["jobs"] = jobs
-    ctx["job_form"] = job_form
+    ctx["job_forms"] = job_forms
 
     return render(request, "commissions/commissions_update.html", ctx)

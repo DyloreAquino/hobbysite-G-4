@@ -12,10 +12,9 @@
         Created On: {{ commission.created_on }}
         <br>
         <h3>Jobs</h3>
-        {{ jobs }}
-        {% for job in jobs %}
-            {{ job_form.as_p }}
-            <hr>
+        {% for job_form in job_forms %}
+            <ul>{{ job_form.as_p }}</ul>
+            <br>
         {% endfor %}
     <button type="submit">Submit</button>
 </form>
