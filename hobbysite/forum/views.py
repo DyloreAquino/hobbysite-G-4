@@ -16,18 +16,19 @@ class ThreadListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        author = self.request.user.profile
         
         categories = ThreadCategory.objects.all()
         remove = []
         
-        for category in categories:     
-            if category.threads.exclude(author=author).first() == None:
-                remove.append(category.name)
-        
-        relevant_categories = ThreadCategory.objects.exclude(name__in=remove)
-        
-        context['categories'] = relevant_categories
+        author = self.request.user
+        if hasattr(author, 'profile'):            
+            for category in categories:     
+                if category.threads.exclude(author=author.profile).first() == None:
+                    remove.append(category.name)
+            
+            categories = ThreadCategory.objects.exclude(name__in=remove)
+
+        context['categories'] = categories
         return context
 
 
