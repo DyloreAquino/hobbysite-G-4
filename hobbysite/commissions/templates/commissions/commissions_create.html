@@ -3,11 +3,15 @@
 {% block title %}Create Commission{% endblock %}
 
 {% block content %}
-    <form method="POST">
-        {% csrf_token %}
-            {{ comm_form }}
+<h2>Create New Commissions</h2>
+<hr>
 
-            <h3>Add Jobs:</h3>
-        <button type="submit">Submit</button>
-    </form>
+<form method="POST">
+    {% csrf_token %}
+        {{ comm_form }}
+
+        <h3>Add Jobs:</h3>
+        {{ job_form }}
+    <button type="submit">Submit</button>
+</form>
 {% endblock %}
