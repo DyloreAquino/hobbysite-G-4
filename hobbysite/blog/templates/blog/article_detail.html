@@ -6,10 +6,10 @@
 {% block content %}
     <h2>Blog</h2>
     <hr>
-    
-    <img src="{{ article.header_image.url }}" alt="{{ article.title }}">
     <h3>{{ article.title }}</h3>
-    by {{ article.author }} <br>
+    <img src="{{ article.header_image.url }}" alt="{{ article.title }}">
+   
+    by {{ article.author }}
 
     <br>
     <p>     
@@ -25,22 +25,23 @@
     {% endif %}
 
     <br>
-    <br>
 
+    <h3>Gallery</h3>
     {% if article.author.user == request.user %}
     <a href="{% url 'blog:article_addimage' article.id %}">
-        Add picture
+        Add picture <br>
     </a>
     {% endif %}
 
 
     {% for image in article.images.all %}
         <img src="{{ image.image.url }}" alt="{{ image.description }}">
+        <br>
     {% endfor %}
 
     <br>
     
-    Other articles by {{ article.author }}
+    <h3>Other articles by {{ article.author }}</h3>
 </h4>
     {% for other_article in article.author.articles.all %}
         {% if other_article != article %}
@@ -52,7 +53,7 @@
         {% endif %}
     {% endfor %}
 
-    Comments
+    <h3>Comments</h3>
 </h4>
     
     {% if request.user.is_authenticated %}
@@ -62,7 +63,7 @@
             <button type="submit">Submit</button>
         </form>
     {% endif %}
-    {% for comment in article.comments.all %}
+    {% for comment in article.comments.all|slice:"::-1" %}
         <ul>
             {{ comment.author }} | {{ comment }}
         </ul>
