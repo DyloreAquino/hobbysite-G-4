@@ -8,7 +8,7 @@ from .models import (Commission,
 class JobAppForm(forms.ModelForm):
     class Meta:
         model = JobApplication
-        fields = ['applicant']
+        fields = []
         
 class CommissionForm(forms.ModelForm):
     class Meta:
