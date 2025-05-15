@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView
 
 from .models import Product, Transaction
-from .forms import TransactionForm, ProductForm, ProductUpdateForm
+from .forms import TransactionForm, ProductCreateForm, ProductUpdateForm
 
 class ProductListView(ListView):
     model = Product
@@ -50,7 +50,7 @@ class ProductDetailView(DetailView):
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     template_name = 'merchstore/product_create.html'
-    form_class = ProductForm
+    form_class = ProductCreateForm
     success_url = reverse_lazy('merchstore:product_list')
     
     def get_form_kwargs(self):
