@@ -7,12 +7,13 @@
     <h2>Blog</h2>
     <hr>
     <h3>{{ article.title }}</h3>
-    <img src="{{ article.header_image.url }}" alt="{{ article.title }}">
+    <img src="{{ article.header_image.url }}"
+        alt="{{ article.title }}"
+        width="100%"
+        height="200"> <br>
    
-    by {{ article.author }}
-
-    <br>
     <p>     
+        Author: {{ article.author }} <br>
         Category: {{ article.category }} <br>
         Created On: {{ article.created_on }} <br>
         Updated On: {{ article.updated_on }} <br>
@@ -35,7 +36,10 @@
 
 
     {% for image in article.blog_images.all %}
-        <img src="{{ image.image.url }}" alt="{{ image.description }}">
+        <img src="{{ image.image.url }}" 
+        alt="{{ image.description }}"
+        width="200"
+        height="200">
         <br>
     {% endfor %}
 

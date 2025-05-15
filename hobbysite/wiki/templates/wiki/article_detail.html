@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     Wiki
@@ -13,7 +14,9 @@
         {{ article.title }}
     </h3>
     {% if article.header_image.url != null %}
-        <img src="{{ article.header_image.url}}"/><br>
+        <img src="{{ article.header_image.url }}"
+            width="100%"
+        	height="200"><br>
     {% endif %}
     <p>
         {% if request.user.is_authenticated %}
@@ -37,13 +40,14 @@
         Gallery
     </h3>
     {% if article.author.user == request.user %}
-        <a href="{% url 'wiki:article_addimage' article.id %}">
-            Add Picture <br>
-        </a>
+    <a href="{% url 'wiki:article_addimage' article.id %}">
+        Add Picture <br>
+    </a>
     {% endif %}
-
     {% for image in article.wiki_images.all %}
-        <img src="{{ image.image.url }}" alt="{{ image.description }}">
+        <img src="{{ image.image.url }}"
+            width="200"
+            height="200">
         <br>
     {% endfor %}
     <br>    
