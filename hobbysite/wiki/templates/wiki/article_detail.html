@@ -12,6 +12,9 @@
     <h3>
         {{ article.title }}
     </h3>
+    {% if article.image.url != null %}
+        <img src="{{ article.image.url}}"/><br>
+    {% endif %}
     <p>
         {% if request.user.is_authenticated %}
             {% if article.author.user == request.user %}
@@ -27,9 +30,6 @@
         Created On: {{ article.created_on }} <br>
         Last updated On: {{ article.updated_on }} <br><br>
 
-                {% if article.image.url != null %}
-                <img src="{{ article.image.url}}"/><br>
-                {% endif %}
         {{ article.entry }}
     </p>
 
@@ -53,11 +53,6 @@
     <h4>
         Comment Section:
     </h4>
-        {% for comment in article.comments.all %}
-            <ul>
-                {{ comment.author }} | {{ comment.entry }}
-            </ul>
-        {% endfor %}
         {% if request.user.is_authenticated %}
             <form method="POST">
                 {% csrf_token %}
@@ -67,6 +62,12 @@
                 </button>
             </form>
         {% endif %}
+
+        {% for comment in article.comments.all|slice:"::-1" %}
+            <ul>
+                {{ comment.author }} | {{ comment.entry }}
+            </ul>
+        {% endfor %}
 
     <a href="/wiki/articles">
         Browse other articles.
