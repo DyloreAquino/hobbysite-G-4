@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Wiki
+{% endblock %}
+
+{% block content %}
+    <h2>
+        Online Wiki
+    </h2>
+    <hr>
+    <h3>
+        {{ article.title }}
+    </h3>
+    {% if article.image.url != null %}
+        <img src="{{ article.image.url}}"/><br>
+    {% endif %}
+    <p>
+        {% if request.user.is_authenticated %}
+            {% if article.author.user == request.user %}
+                <a href="{{ article.get_edit_url }}">
+                    Edit article
+                </a>
+            {% endif %}
+        {% endif %}
+        <br>
+        
+        Author: {{ article.author }}
+        Category: {{ article.category }} <br>
+        Created On: {{ article.created_on }} <br>
+        Last updated On: {{ article.updated_on }} <br><br>
+
+        {{ article.entry }}
+    </p>
+
+    {% with articles=article.category.articles %}
+        {% if articles.all|length > 1 %}
+            <h4>
+                Read more from {{ article.category }}
+            </h4>
+                {% for other_article in articles.all %}
+                    {% if other_article != article %}
+                        <ul>
+                            <a href="{{ other_article.get_absolute_url }}">
+                                {{ other_article }}
+                            </a>
+                        </ul>
+                    {% endif %}
+                {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h4>
+        Comment Section:
+    </h4>
+        {% if request.user.is_authenticated %}
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">
+                    Submit
+                </button>
+            </form>
+        {% endif %}
+
+        {% for comment in article.comments.all|slice:"::-1" %}
+            <ul>
+                {{ comment.author }} | {{ comment.entry }}
+            </ul>
+        {% endfor %}
+
+    <a href="/wiki/articles">
+        Browse other articles.
+    </a>
+{% endblock %}
