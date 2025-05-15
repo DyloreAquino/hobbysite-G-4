@@ -1,14 +1,15 @@
 from django import forms
 
-from .models import Commission, Job, JobApplication
+from .models import (Commission, 
+                     Job,
+                     JobApplication)
 
 
 class JobAppForm(forms.ModelForm):
     class Meta:
         model = JobApplication
-        fields = ['job', 'applicant']
-
-
+        fields = ['status']
+        
 class CommissionForm(forms.ModelForm):
     class Meta:
         model = Commission

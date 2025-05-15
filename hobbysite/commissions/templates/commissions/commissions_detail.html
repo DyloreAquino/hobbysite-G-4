@@ -28,7 +28,7 @@
 <h3>Jobs</h3>
 {% for job in object.job.all %}
     <ul>
-        <li>{{ job.role }} <br>
+        <li>{{ job.role }} : {{job.pk}}<br>
         <ul>
             Total Manpower: {{ job.manpower_required }} <br>
             Open Manpower: {{ job.get_open_slots_count }} <br>
@@ -36,6 +36,7 @@
             {% if request.user.is_authenticated %}
                 <form method="POST">
                     {% csrf_token %}
+                    <input type="hidden" name="job_id" value={{job.pk}}> 
                     {{ form }}
                 {% if job.get_open_slots_count > 0 %}
                     <button type="submit">

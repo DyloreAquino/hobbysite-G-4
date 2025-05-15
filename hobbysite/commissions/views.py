@@ -5,11 +5,12 @@ from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import (render,
-                              redirect)
+                              redirect,
+                              get_object_or_404)
 from django.urls import reverse
 
 from .forms import CommissionForm, JobForm, JobAppForm
-from .models import Commission
+from .models import Commission, Job
 
 
 class CommissionListView(ListView):
@@ -29,13 +30,17 @@ class CommissionDetailView(LoginRequiredMixin, DetailView):
         ctx = super().get_context_data(**kwargs)
         ctx['form'] = JobAppForm()
         return ctx
-
+    
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
+        job_id = request.POST.get("job_id")
+        job = self.object.job.get(id=job_id)
         form = JobAppForm(request.POST)
+
         if form.is_valid():
             job_app = form.save(commit=False)
             job_app.applicant = self.request.user.profile
+            job_app.job = job
 
             job_app.save()
 
