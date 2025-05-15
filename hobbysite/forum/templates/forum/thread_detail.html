@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Forum
+{% endblock %}
+
+{% block content %}
+    <h2>
+        Forum
+    </h2>
+    <hr>
+    <h3>
+        {{ thread.title }}
+    </h3>
+    <p>
+		{% if request.user.is_authenticated %}
+			{% if thread.author.user == request.user %}
+				<a href="{{ thread.get_edit_url }}">
+					Edit post <br>
+				</a>
+			{% endif %}
+		{% endif %}
+		Author: {{ thread.author }} <br>
+        Category: {{ thread.category }} <br>
+        Created on: {{ thread.created_on }} <br>
+        Last updated on: {{ thread.updated_on}} <br><br>
+        
+		{% if thread.image.url != null %}
+		<img src="{{ thread.image.url }}"/><br>
+		{% endif %}
+        {{ thread.entry }}
+    </p>
+	
+	{% with threads=thread.category.threads %}
+		{% if threads.all|length > 1 %}
+		<h4>
+			Other threads in {{ thread.category }}
+		</h4>
+			{% for other_thread in threads.all %}
+				{% if other_thread != thread %}
+					<ul>
+						<a href="{{ other_thread.get_absolute_url }}">
+							{{ other_thread }}
+						</a>
+					</ul>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	{% endwith %}
+	<h4>
+		Comments
+	</h4>
+		{% for comment in thread.comments.all %}
+			<ul>
+				{{ comment.author }} | {{ comment }}
+			</ul>
+		{% endfor %}
+		{% if request.user.is_authenticated %}
+			<form method="POST" >
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button type="submit">Submit</button>
+			</form>
+		{% endif %}
+	
+	<br>	
+    <a href="/forum/threads">
+        Browse threads.
+    </a>
+{% endblock %}

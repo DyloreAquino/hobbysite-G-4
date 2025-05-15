@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Forum
+{% endblock %}
+
+{% block content %}
+    <h2>
+        Forum
+    </h2>
+    <hr>
+	{% if request.user.is_authenticated %}
+		<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button type="submit">Submit</button>
+		</form>
+	{% else %}
+		<p>
+			You need to be logged in to edit threads. <a href="{% url 'login' %}"> Please click here to login. </a>
+		</p>
+	{% endif %}
+{% endblock %}
