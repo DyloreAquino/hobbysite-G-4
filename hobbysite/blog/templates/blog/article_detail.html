@@ -2,19 +2,73 @@
 
 {% block title %}Article Detail{% endblock %}
 
+{% load static %}
 {% block content %}
     <h2>Blog</h2>
     <hr>
-    <h3>{{ object.title }}</h3>
-        
+    <h3>{{ article.title }}</h3>
+    <img src="{{ article.header_image.url }}" alt="{{ article.title }}">
+   
+    by {{ article.author }}
+
+    <br>
     <p>     
-        Category: {{ object.category }} <br>
-        Created On: {{ object.created_on }} <br>
-        Updated On: {{ object.updated_on }} <br>
+        Category: {{ article.category }} <br>
+        Created On: {{ article.created_on }} <br>
+        Updated On: {{ article.updated_on }} <br>
         <br>    
-        {{ object.entry }}
+        {{ article.entry }}
     </p>
 
+    {% if article.author.user == request.user %}
+      <a href="{% url 'blog:article_update' article.id %}">Edit Article</a>
+    {% endif %}
+
+    <br>
+
+    <h3>Gallery</h3>
+    {% if article.author.user == request.user %}
+    <a href="{% url 'blog:article_addimage' article.id %}">
+        Add picture <br>
+    </a>
+    {% endif %}
+
+
+    {% for image in article.images.all %}
+        <img src="{{ image.image.url }}" alt="{{ image.description }}">
+        <br>
+    {% endfor %}
+
+    <br>
+    
+    <h3>Other articles by {{ article.author }}</h3>
+</h4>
+    {% for other_article in article.author.articles.all %}
+        {% if other_article != article %}
+            <ul>
+                <a href="{{ other_article.get_absolute_url }}">
+                    {{ other_article }}
+                </a>
+            </ul>
+        {% endif %}
+    {% endfor %}
+
+    <h3>Comments</h3>
+</h4>
+    
+    {% if request.user.is_authenticated %}
+        <form method="POST" >
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    {% endif %}
+    {% for comment in article.comments.all|slice:"::-1" %}
+        <ul>
+            {{ comment.author }} | {{ comment }}
+        </ul>
+    {% endfor %}
+<br>	
     <a href="/blog/articles">
         Go back to articles list
     </a>
