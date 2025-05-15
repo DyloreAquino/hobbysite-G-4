@@ -25,12 +25,12 @@ class CommissionDetailView(LoginRequiredMixin, DetailView):
 
     model = Commission
     template_name = 'commissions/commissions_detail.html'
-    
+
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['form'] = JobAppForm()
         return ctx
-    
+
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         job_id = request.POST.get("job_id")
@@ -64,7 +64,7 @@ def handle_commission_add_page(request):
             comm_form.instance.author = request.user.profile
             comm_form.save()
             pk = comm_form.instance.id
-        
+
         if job_form.is_valid():
             job_form.instance.commission = comm_form.instance
             job_form.save()

@@ -41,5 +41,6 @@ class JobAdmin(admin.ModelAdmin):
         'status'
     )
 
+
 admin.site.register(Commission, CommissionAdmin)
 admin.site.register(Job, JobAdmin)

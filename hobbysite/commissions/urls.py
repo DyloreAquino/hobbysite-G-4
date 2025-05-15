@@ -2,7 +2,7 @@
 from django.urls import path
 from . import views
 from .views import (
-    CommissionListView, 
+    CommissionListView,
     CommissionDetailView,
     CommissionUpdateView)
 
@@ -16,9 +16,9 @@ urlpatterns = [
     path('<int:pk>/edit',
          CommissionUpdateView.as_view(),
          name='commissions-update'),
-    path('add/', 
-          views.handle_commission_add_page,
-          name='commission-add')
+    path('add/',
+         views.handle_commission_add_page,
+         name='commission-add')
 ]
 
 app_name = "commissions"

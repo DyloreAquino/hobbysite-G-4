@@ -54,20 +54,20 @@ class Commission(models.Model):
         Return the url link of the object.
         """
         return reverse('commissions:commissions-detail', args=[self.pk])
-    
+
     def is_commission_full(self):
         """
         Method to update the status of the commission
-        when all jobs' statuses are full. 
+        when all jobs' statuses are full.
 
         It has a counter equal to the number of jobs
         and ticks down for each full job
         """
         filled_job_countdown = len(self.job.all())
         for job_instance in self.job.all():
-            if job_instance.status=='FULL':
-                filled_job_countdown-=1
-        
+            if job_instance.status == 'FULL':
+                filled_job_countdown -= 1
+
         if filled_job_countdown == 0:
             return True
         else:
@@ -100,16 +100,16 @@ class Job(models.Model):
         """
         Meta of the Job model to order by status & manpower
         """
-        # Status needs to be put in descending since 
+        # Status needs to be put in descending since
         # we're expecting Open before Full and it sorts alphabetically
         ordering = ["-status", "-manpower_required", "role"]
-    
+
     def __str__(self):
         """
         Sets the name of the job to be human readable
         """
         return f"{self.commission.title} {self.role}"
-    
+
     def get_open_slots_count(self):
         """
         Function to get the remaining number of open slots.
@@ -163,4 +163,3 @@ class JobApplication(models.Model):
         Sets ordering of JobApplication Model
         """
         ordering = ["status", "-applied_on"]
-        

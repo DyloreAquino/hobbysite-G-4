@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import (Commission, 
+from .models import (Commission,
                      Job,
                      JobApplication)
 
@@ -9,7 +9,8 @@ class JobAppForm(forms.ModelForm):
     class Meta:
         model = JobApplication
         fields = []
-        
+
+
 class CommissionForm(forms.ModelForm):
     class Meta:
         model = Commission
