@@ -1,1 +1,1 @@
-web: gunicorn hobbysite.wsgi:application --bind 0.0.0.0:$PORT
+web: gunicorn hobbysite.hobbysite.wsgi:application --bind 0.0.0.0:$PORT
