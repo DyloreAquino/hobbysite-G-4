@@ -25,7 +25,8 @@ class ArticleListView(ListView):
         if hasattr(author, 'profile'):
             for category in categories:
                 if (
-                    category.wiki_articles.exclude(author=author.profile).first()
+                    category.wiki_articles.exclude(
+                        author=author.profile).first()
                     is None
                 ):
                     remove.append(category.name)
