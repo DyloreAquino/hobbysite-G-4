@@ -54,6 +54,24 @@ class Commission(models.Model):
         Return the url link of the object.
         """
         return reverse('commissions:commissions-detail', args=[self.pk])
+    
+    def is_commission_full(self):
+        """
+        Method to update the status of the commission
+        when all jobs' statuses are full. 
+
+        It has a counter equal to the number of jobs
+        and ticks down for each full job
+        """
+        filled_job_countdown = len(self.job.all())
+        for job_instance in self.job.all():
+            if job_instance.status=='FULL':
+                filled_job_countdown-=1
+        
+        if filled_job_countdown == 0:
+            return True
+        else:
+            return False
 
 
 class Job(models.Model):

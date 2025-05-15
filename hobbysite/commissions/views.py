@@ -44,7 +44,7 @@ class CommissionDetailView(LoginRequiredMixin, DetailView):
 
             job_app.save()
 
-        return self.render_to_response(self.get_context_data(form = form))
+        return self.render_to_response(self.get_context_data(form=form))
 
 
 @login_required
@@ -86,3 +86,9 @@ class CommissionUpdateView(LoginRequiredMixin, UpdateView):
     model = Commission
     template_name = 'commissions/commissions_update.html'
     form_class = CommissionForm
+
+    def form_valid(self, form):
+        self.object = self.get_object()
+        if self.object.is_commission_full():
+            form.instance.status = "FULL"
+        return super().form_valid(form)

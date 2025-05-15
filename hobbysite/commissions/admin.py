@@ -41,17 +41,5 @@ class JobAdmin(admin.ModelAdmin):
         'status'
     )
 
-
-class TempJobAppAdmin(admin.ModelAdmin):
-    """TO DELETE LATER"""
-
-    model = JobApplication
-    list_display = (
-        'job',
-        'applicant',
-        'status',
-    )
-
 admin.site.register(Commission, CommissionAdmin)
 admin.site.register(Job, JobAdmin)
-admin.site.register(JobApplication, TempJobAppAdmin)
