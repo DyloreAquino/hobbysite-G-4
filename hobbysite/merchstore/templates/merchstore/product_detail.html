@@ -1,11 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'merchstore/merchstore_tab.html' %}
 {% load static %}
 
 {% block title %} {{ object.name }} {% endblock %}
 
+{% block tab %}
+	{{ block.super }}
+{% endblock %}
+
 {% block content %}
-<h2> Merchstore </h2>
-<hr>
 <h3> {{ object.name }} </h3>
 
 <p>
@@ -13,32 +15,38 @@
 	Price: ₱{{ object.price }} <br>
     Owner: {{ object.owner }} <br>
     Stock: {{ object.stock }} <br>
-    Status: {{ object.status }} <br>
+    Status: {{ object.get_status_display }} <br>
+    {% comment %}
+        From https://docs.djangoproject.com/en/5.2/ref/models/instances/
+    {% endcomment %}
     <br>
 	{{ object.description }}
     <br>
 </p>
 
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form }}
-    {{ form.errors }}
-    {% if object.stock > 0 %}
-        <button type="submit">
-            Buy this product!
-        </button>
-    {% else %}
-        <button type="submit" disabled>
-            Sold out!
-        </button>
-    {% endif %}
-</form>
+{% if object.owner != request.user.profile %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        {{ form.errors }}
+        {% if object.stock > 0 %}
+            <button type="submit">
+                Buy this product!
+            </button>
+        {% else %}
+            <button type="submit" disabled>
+                Sold out!
+            </button>
+        {% endif %}
+    </form>
+{% else %}
+    <p>
+        <a href="/merchstore/item/{{ object.pk }}/edit">
+            Edit this product.
+        </a>
+    </p>
+{% endif %}
 
-<p>
-    <a href="/merchstore/item/{{ object.pk }}/edit">
-        Edit this product.
-    </a>
-</p>
 
 <br>
 <a href="/merchstore/items"> Go back to product list. </a>

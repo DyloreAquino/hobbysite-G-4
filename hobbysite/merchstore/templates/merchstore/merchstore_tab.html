@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+    {% block tab %}
+        <h2> Merchstore </h2>
+            {% if request.path != "/merchstore/cart/" %}
+                <a href="{% url 'merchstore:cart' %}"> My Cart </a>
+            {% endif %}
+
+            |
+
+            {% if request.path != "/merchstore/transactions/" %}
+                <a href="{% url 'merchstore:transactions' %}"> Transactions </a>
+            {% endif %}
+        <hr>
+    {% endblock %}

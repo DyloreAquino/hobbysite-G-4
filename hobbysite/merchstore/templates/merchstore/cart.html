@@ -1,4 +1,8 @@
-{% extends 'base.html' %}
+{% extends 'merchstore/merchstore_tab.html' %}
+
+{% block tab %}
+	{{ block.super }}
+{% endblock %}
 
 {% block content %}
 <h2> My Cart </h2>
@@ -9,10 +13,14 @@
         {% for transaction in transactions %}
             <p>{{ transaction.product.name }}
             <br>Amount: {{ transaction.amount }}
-            <br>Status: {{ transaction.status }}
-            <br>Created on {{ transaction.created_on}}</p>
+            <br>Status: {{ transaction.get_status_display }}
+            <br>Created on {{ transaction.created_on }}</p>
             <br>
         {% endfor %}
     {% endfor %}
+
+    <a href="/merchstore/items">
+        Continue Shopping!
+    </a>
 
 {% endblock %}

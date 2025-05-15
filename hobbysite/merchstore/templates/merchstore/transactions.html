@@ -1,7 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'merchstore/merchstore_tab.html' %}
+
+{% block tab %}
+	{{ block.super }}
+{% endblock %}
 
 {% block content %}
-<h2> My Cart </h2>
+<h2> Transactions </h2>
 <hr>
 
 	{% for buyer, transactions in grouped_transactions %}

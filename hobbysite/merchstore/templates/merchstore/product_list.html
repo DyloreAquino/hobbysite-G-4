@@ -1,11 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'merchstore/merchstore_tab.html' %}
 {% load static %}
 
 {% block title %} Merchstore {% endblock %}
 
+{% block tab %}
+	{{ block.super }}
+{% endblock %}
+
 {% block content %}
-<h2> Merchstore </h2>
-<hr>
 <h3> Products List </h3> 
 
 {% if request.user.is_authenticated %}

@@ -1,8 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'merchstore/merchstore_tab.html' %}
+
+{% block tab %}
+	{{ block.super }}
+{% endblock %}
 
 {% block content %}
-<h2> Merchstore </h2>
-<hr>
 <h3> {{ object.name }} </h3>
 
 
