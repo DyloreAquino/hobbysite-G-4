@@ -47,10 +47,10 @@ class Article(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('wiki:article-detail', args=[self.pk])
+        return reverse('wiki:article_detail', args=[self.pk])
 
     def get_edit_url(self):
-        return reverse('wiki:article-update', args=[self.pk])
+        return reverse('wiki:article_update', args=[self.pk])
 
     class Meta:
         ordering = ['-created_on']
@@ -95,7 +95,7 @@ class ArticleImage(models.Model):
         Article,
         on_delete=models.SET_NULL,
         null=True,
-        related_name='article_images'
+        related_name='wiki_images'
     )
 
     def __str__(self):

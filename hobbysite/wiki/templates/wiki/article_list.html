@@ -21,7 +21,7 @@
             {% for article in article_list %}
                 <ul>
                     {% if article.author.user == request.user %}
-                            <a href="{% url 'wiki:article_detail' article.pk %}">
+                            <a href="{{ article.get_absolute_url }}">
                                 {{ article.title }}
                             </a>
                     {% endif %}

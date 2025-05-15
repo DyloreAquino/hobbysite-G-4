@@ -37,13 +37,14 @@
         Gallery
     </h3>
     {% if article.author.user == request.user %}
-    <a href="{% url 'wiki:article_addimage' article.id %}">
-        Add Picture <br>
-    </a>
+        <a href="{% url 'wiki:article_addimage' article.id %}">
+            Add Picture <br>
+        </a>
     {% endif %}
+
     {% for image in article.wiki_images.all %}
-     <img src="{{ image.image.url }}"/>
-     <br>
+        <img src="{{ image.image.url }}" alt="{{ image.description }}">
+        <br>
     {% endfor %}
     <br>    
 
