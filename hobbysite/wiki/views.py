@@ -19,7 +19,7 @@ class ArticleListView(ListView):
         author = self.request.user
         if hasattr(author, 'profile'):
             for category in categories:
-                if category.articles.exclude(author=author.profile).first() is None:
+                if category.wiki_articles.exclude(author=author.profile).first() is None:
                     remove.append(category.name)
 
         relevant_categories = ArticleCategory.objects.exclude(name__in=remove)
@@ -34,7 +34,7 @@ class ArticleDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['comments'] = self.object.comments.all()
+        context['comments'] = self.object.wiki_comments.all()
         context['form'] = CommentForm()
         return context
 

@@ -20,7 +20,8 @@ class Thread(models.Model):
     author = models.ForeignKey(
         Profile,
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        related_name='threads'
     )
     category = models.ForeignKey(
         ThreadCategory,
@@ -50,13 +51,14 @@ class Comment(models.Model):
     author = models.ForeignKey(
         Profile,
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        related_name='forum_comments'
     )
     thread = models.ForeignKey(
         Thread,
         on_delete=models.CASCADE,
         null=False,
-        related_name='comments'
+        related_name='forum_comments'
     )
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)

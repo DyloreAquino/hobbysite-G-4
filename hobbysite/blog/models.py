@@ -23,12 +23,12 @@ class Article(models.Model):
     author = models.ForeignKey(Profile,
                                on_delete=models.SET_NULL,
                                null=True,
-                               related_name='articles')
+                               related_name='blog_articles')
 
     category = models.ForeignKey(ArticleCategory,
                                  on_delete=models.SET_NULL,
                                  null=True,
-                                 related_name='articles')
+                                 related_name='blog_articles')
     entry = models.TextField()
     header_image = models.ImageField(upload_to='images/', null=True)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -50,11 +50,12 @@ class Article(models.Model):
 class Comment(models.Model):
     author = models.ForeignKey(Profile,
                                on_delete=models.SET_NULL,
-                               null=True,)
+                               null=True,
+                               related_name='blog_comments')
     article = models.ForeignKey(Article,
                                 on_delete=models.CASCADE,
                                 null=True,
-                                related_name='comments')
+                                related_name='blog_comments')
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -73,7 +74,7 @@ class ArticleImage(models.Model):
     article = models.ForeignKey(Article,
                                 on_delete=models.SET_NULL,
                                 null=True,
-                                related_name='images')
+                                related_name='blog_images')
 
     def __str__(self):
         return f'{self.description}'

@@ -50,7 +50,7 @@
 	<h4>
 		Comments
 	</h4>
-		{% for comment in thread.comments.all %}
+		{% for comment in thread.forum_comments.all %}
 			<ul>
 				{{ comment.author }} | {{ comment }}
 			</ul>

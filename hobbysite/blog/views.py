@@ -26,7 +26,7 @@ class ArticleListView(ListView):
         if hasattr(author, 'profile'):
             for category in categories:
                 if (
-                    category.articles.exclude(author=author.profile).first()
+                    category.blog_articles.exclude(author=author.profile).first()
                     is None
                 ):
                     remove.append(category.name)
@@ -44,7 +44,7 @@ class ArticleDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['comments'] = self.object.comments.all()
+        context['comments'] = self.object.blog_comments.all()
         context['form'] = CommentForm()
         return context
 

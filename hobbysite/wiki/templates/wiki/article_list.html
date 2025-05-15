@@ -35,7 +35,7 @@
                 <h4>
                     {{ category.name }}
                 </h4>
-                {% for article in category.articles.all %}
+                {% for article in category.wiki_articles.all %}
                     <ul>
                         {% if article.author.user != request.user %}
                             <a href="{{ article.get_absolute_url }}">
@@ -49,7 +49,7 @@
             All Articles
         </h3>
         {% for category in categories %}
-            {% with articles=category.articles %}
+            {% with articles=category.wiki_articles %}
                 <h4>
                     {{ category.name }}
                 </h4>

@@ -26,7 +26,7 @@ class Article(models.Model):
         ArticleCategory,
         on_delete=models.SET_NULL,
         null=True,
-        related_name='articles'
+        related_name='wiki_articles'
     )
     entry = models.TextField()
     image = models.ImageField(upload_to='images/', null=True, blank=True)
@@ -50,13 +50,14 @@ class Comment(models.Model):
     author = models.ForeignKey(
         Profile,
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        related_name='wiki_comments'
     )
     article = models.ForeignKey(
         Article,
         on_delete=models.CASCADE,
         null=True,
-        related_name='comments'
+        related_name='wiki_comments'
     )
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)

@@ -34,7 +34,7 @@
     {% endif %}
 
 
-    {% for image in article.images.all %}
+    {% for image in article.blog_images.all %}
         <img src="{{ image.image.url }}" alt="{{ image.description }}">
         <br>
     {% endfor %}
@@ -43,7 +43,7 @@
     
     <h3>Other articles by {{ article.author }}</h3>
 </h4>
-    {% for other_article in article.author.articles.all %}
+    {% for other_article in article.author.blog_articles.all %}
         {% if other_article != article %}
             <ul>
                 <a href="{{ other_article.get_absolute_url }}">
@@ -63,7 +63,7 @@
             <button type="submit">Submit</button>
         </form>
     {% endif %}
-    {% for comment in article.comments.all|slice:"::-1" %}
+    {% for comment in article.blog_comments.all|slice:"::-1" %}
         <ul>
             {{ comment.author }} | {{ comment }}
         </ul>

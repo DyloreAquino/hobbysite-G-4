@@ -33,7 +33,7 @@
         {{ article.entry }}
     </p>
 
-    {% with articles=article.category.articles %}
+    {% with articles=article.category.wiki_articles %}
         {% if articles.all|length > 1 %}
             <h4>
                 Read more from {{ article.category }}
@@ -63,7 +63,7 @@
             </form>
         {% endif %}
 
-        {% for comment in article.comments.all|slice:"::-1" %}
+        {% for comment in article.wiki_comments.all|slice:"::-1" %}
             <ul>
                 {{ comment.author }} | {{ comment.entry }}
             </ul>
