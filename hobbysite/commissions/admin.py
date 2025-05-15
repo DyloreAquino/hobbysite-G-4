@@ -1,7 +1,17 @@
 """Admin file."""
 from django.contrib import admin
-from .models import Commission, Comment
+from .models import Commission, Job, JobApplication
 # Register your models here.
+
+
+class JobAppInline(admin.TabularInline):
+    """Admin access to JobApplication"""
+    model = JobApplication
+    list_display = [
+        'applicant',
+        'status',
+    ]
+    readonly_fields = ['applied_on']
 
 
 class CommissionAdmin(admin.ModelAdmin):
@@ -9,13 +19,28 @@ class CommissionAdmin(admin.ModelAdmin):
 
     model = Commission
 
+    list_display = (
+        'title',
+        'status',
+        'required_people',
+        'created_on',
+        'updated_on'
+    )
 
-class CommentAdmin(admin.ModelAdmin):
-    """Admin access to comment."""
 
-    model = Comment
+class JobAdmin(admin.ModelAdmin):
+    """Admin access to Job"""
+
+    model = Job
+    inlines = [JobAppInline]
+
+    list_display = (
+        'commission',
+        'role',
+        'manpower_required',
+        'status'
+    )
 
 
 admin.site.register(Commission, CommissionAdmin)
-
-admin.site.register(Comment, CommentAdmin)
+admin.site.register(Job, JobAdmin)

@@ -9,24 +9,49 @@
 <h3>{{ object.title }}</h3>
 
 <p>
-    Needs: {{ object.requiredPeople }} <br>
-    Created on: {{ object.createdOn }} <br>
-    Updated on: {{ object.updatedOn }} <br>
+    {% if object.author == request.user.profile %}
+        <a href="{% url 'commissions:commissions-update' pk=object.pk %}">
+            Edit this commission
+        </a>
+        <br><br>
+    {% endif %}
+
+    Author: {{ object.author }} <br>
+    Status: {{ object.get_status_display }} <br>
+    Needed Manpower: {{ object.required_people }} <br>
+    Created on: {{ object.created_on }} <br>
+    Updated on: {{ object.updated_on }} <br>
     <br>
     {{ object.description }}
 </p>
-<br>
-<h3>Comments:</h3>
 
-<p>
-    {% for comment in object.comments.all %}
-        {{ comment.entry }} <br>
-        Created on : {{ comment.createdOn }} <br>
-        Updated on : {{ comment.updatedOn }} <br>
-    {% endfor %}
-</p>
+<h3>Jobs</h3>
+{% for job in object.job.all %}
+    <ul>
+        <li>{{ job.role }}<br>
+        <ul>
+            Total Manpower: {{ job.manpower_required }} <br>
+            Open Manpower: {{ job.get_open_slots_count }} <br>
 
-<a href="/commissions/list">
+            {% if request.user.is_authenticated %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="job_id" value={{job.pk}}> 
+                    {{ form }}
+                {% if job.get_open_slots_count > 0 %}
+                    <button type="submit">
+                {% else %}
+                    <button type="submit" disabled>
+                {% endif %}
+                        Apply to Job
+                    </button>
+                </form>
+            {% endif %}
+        </ul>
+        </li>
+    </ul>
+{% endfor %}
+<a href="{% url 'commissions:commissions-list' %}">
     Go back to commissions list.
 </a>
 {% endblock %}

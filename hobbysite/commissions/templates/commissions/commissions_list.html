@@ -8,13 +8,105 @@
 	Commissions
 </h2>
 <hr>
-<ul>
-	{% for commissions in object_list %}
-	<li>
-		<a href="{{ commissions.get_absolute_url }}">
-		{{ commissions.title }}
-		</a>
-	</li>
+{% comment %}
+Regroup from 
+https://docs.djangoproject.com/en/5.1/ref/templates/builtins/#regroup
+https://www.w3schools.com/django/ref_tags_regroup.php
+{% endcomment %}
+
+{% if request.user.is_authenticated %}
+
+<a href="/commissions/add/">Create a New Commission</a>
+<br>
+<br>
+<b>Created Commissions</b>
+	<ul>
+	{% for commission in object_list %}
+		{% if commission.author == request.user.profile %}
+		<li>
+			<a href="{{ commission.get_absolute_url }}">
+				{{ commission.title }}
+			</a>
+		</li>
+		{% endif %}
 	{% endfor %}
+	</ul>
+
+<b>Commissions Applied To</b>
+	<ul>
+	{% for commission in object_list %}
+		{% for job in commission.job.all %}
+			{% for application in job.job_application.all %}
+				{% if application.applicant == request.user.profile %}
+					<li>
+						<a href="{{ commission.get_absolute_url }}">
+							{{ commission.title }}
+						</a>
+					</li>
+				{% endif %}
+			{% endfor %}
+		{% endfor %}
+	{% endfor %}
+	</ul>
+{% endif %}
+
+<h3>All Commissions</h3>
+<ul>
+		<li><b>Open</b>
+		<ul>
+			{% for commission in object_list reversed %}
+			{% if commission.status == 'OPEN' %}
+				<li>
+					<a href="{{ commission.get_absolute_url }}">
+						{{ commission.title }}
+					</a>
+				</li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+		</li>
+
+		<li><b>Full</b>
+		<ul>
+			{% for commission in object_list reversed %}
+			{% if commission.status == 'FULL' %}
+				<li>
+					<a href="{{ commission.get_absolute_url }}">
+						{{ commission.title }}
+					</a>
+				</li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+		</li>
+
+		<li><b>Completed</b>
+		<ul>
+			{% for commission in object_list reversed %}
+			{% if commission.status == 'COMPLETE' %}
+				<li>
+					<a href="{{ commission.get_absolute_url }}">
+						{{ commission.title }}
+					</a>
+				</li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+		</li>
+
+		<li><b>Discontinued</b>
+		<ul>
+			{% for commission in object_list reversed %}
+			{% if commission.status == 'DISCONTINUED' %}
+				<li>
+					<a href="{{ commission.get_absolute_url }}">
+						{{ commission.title }}
+					</a>
+				</li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+		</li>
 </ul>
+
 {% endblock %}
