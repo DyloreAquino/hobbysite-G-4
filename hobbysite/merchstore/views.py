@@ -12,7 +12,7 @@ class ProductListView(ListView):
     model = Product
     template_name = 'merchstore/product_list.html'
     
-class ProductDetailView(LoginRequiredMixin, DetailView):
+class ProductDetailView(DetailView):
     model = Product
     template_name = 'merchstore/product_detail.html'
     
@@ -24,6 +24,8 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = TransactionForm(request.POST)
+        if not self.request.user.is_authenticated:
+            return redirect(f"/accounts/login?next={self.request.path}")
         if form.is_valid():
             transaction = form.save(commit=False)
             transaction.buyer = self.request.user.profile
@@ -38,6 +40,8 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
             transaction.save()
             
             self.object.stock -= transaction.amount
+            if self.object.stock == 0:
+                self.object.status = self.object.OUTOFSTOCK
             self.object.save()
             
             return redirect('merchstore:cart')
@@ -73,7 +77,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             form.instance.status = form.instance.OUTOFSTOCK
         return super().form_valid(form)
 
-class CartView(ListView):
+class CartView(LoginRequiredMixin, ListView):
     model = Transaction
     template_name = 'merchstore/cart.html'
     
@@ -91,7 +95,7 @@ class CartView(ListView):
         context['grouped_transactions'] = categorized_transactions.items()
         return context
 
-class TransactionListView(ListView):
+class TransactionListView(LoginRequiredMixin, ListView):
     model = Transaction
     template_name = 'merchstore/transactions.html'
     
