@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Wiki
+{% endblock %}
+
+{% block content %}
+<h1>
+    Upload Image:
+</h1>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+
+<a href="{% url 'wiki:article_detail' article.pk %}">Back to article </a>
+{% endblock %}

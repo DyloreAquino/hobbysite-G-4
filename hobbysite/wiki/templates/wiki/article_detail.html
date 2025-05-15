@@ -12,13 +12,13 @@
     <h3>
         {{ article.title }}
     </h3>
-    {% if article.image.url != null %}
-        <img src="{{ article.image.url}}"/><br>
+    {% if article.header_image.url != null %}
+        <img src="{{ article.header_image.url}}"/><br>
     {% endif %}
     <p>
         {% if request.user.is_authenticated %}
             {% if article.author.user == request.user %}
-                <a href="{{ article.get_edit_url }}">
+                <a href="{% url 'wiki:article_update' article.id %}">
                     Edit article
                 </a>
             {% endif %}
@@ -32,6 +32,20 @@
 
         {{ article.entry }}
     </p>
+
+    <h3>
+        Gallery
+    </h3>
+    {% if article.author.user == request.user %}
+    <a href="{% url 'wiki:article_addimage' article.id %}">
+        Add Picture <br>
+    </a>
+    {% endif %}
+    {% for image in article.wiki_images.all %}
+     <img src="{{ image.image.url }}"/>
+     <br>
+    {% endfor %}
+    <br>    
 
     {% with articles=article.category.wiki_articles %}
         {% if articles.all|length > 1 %}
