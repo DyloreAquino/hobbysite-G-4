@@ -3,7 +3,7 @@ from .models import Profile
 
 
 class ProfileForm(forms.ModelForm):
-    """A class for creating profiles through a form."""
+    """A class for editing the profile's display name through a form."""
 
     class Meta:
         model = Profile
