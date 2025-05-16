@@ -30,6 +30,7 @@ urlpatterns = [
     path('commissions/', include('commissions.urls', namespace="commissions")),
     path('', include('homepage.urls', namespace='homepage')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
     path('profile/', include('user_management.urls',
                              namespace='user_management')),
     path('admin/', admin.site.urls),
