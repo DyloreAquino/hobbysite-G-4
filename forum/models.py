@@ -10,6 +10,8 @@ class ThreadCategory(models.Model):
 
     class Meta:
         ordering = ['name']
+        verbose_name = 'Thread Category'
+        verbose_name_plural = 'Thread Categories'
 
     def __str__(self):
         return str(self.name)
